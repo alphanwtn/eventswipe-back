@@ -16,5 +16,4 @@ public class EventswipeApplication implements CommandLineRunner {
 		System.out.println(
 				"<<<<<<<<<<<< Et salut ceci est un test du bon lancement de l'app, des bisous ! <<<<<<<<<<<<<<<<");
 	}
-
 }

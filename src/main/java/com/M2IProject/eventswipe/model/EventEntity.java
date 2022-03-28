@@ -6,6 +6,7 @@ import java.util.Set;
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.Id;
 import javax.persistence.ManyToMany;
 import javax.persistence.OneToOne;
@@ -52,16 +53,16 @@ public class EventEntity {
 	@OneToOne
 	private GenreEntity genre;
 
-	@OneToOne()
+	@OneToOne
 	private SubGenreEntity subgenre;
 
-	@OneToOne
+	@OneToOne(cascade = CascadeType.ALL)
 	private VenueEntity venue;
 
-	@ManyToMany
+	@ManyToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
 	private Set<AttractionEntity> attractions_in_event;
 
-	@ManyToMany(cascade = CascadeType.ALL)
+	@ManyToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
 	private Set<ImageEntity> images_in_event;
 
 }

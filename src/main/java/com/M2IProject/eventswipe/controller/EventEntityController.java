@@ -2,6 +2,7 @@ package com.M2IProject.eventswipe.controller;
 
 import java.util.ArrayList;
 import java.util.Collections;
+import java.util.Date;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -28,13 +29,14 @@ public class EventEntityController {
 		List<EventEntity> eventsList = new ArrayList<>();
 
 		for (String g : searchedGenres) {
-			Iterable<EventEntity> resultByGenre = eventEntityRepository.findByGenreName(g);
+			Iterable<EventEntity> resultByGenre = eventEntityRepository.findAllByGenreName(g);
 			resultByGenre.forEach(x -> eventsList.add(x));
 		}
 
 		Collections.shuffle(eventsList);
+		System.out.println(new Date());
+		// eventsList.forEach(x -> System.out.println(x.getImages_in_event()));
 
-		eventsList.forEach(x -> System.out.println(x.getImages_in_event()));
 		return eventsList;
 	}
 
