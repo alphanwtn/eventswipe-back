@@ -15,4 +15,6 @@ public interface EventEntityRepository extends CrudRepository<EventEntity, Integ
 
 	Iterable<EventEntity> findAllByGenreName(String g);
 
+	Iterable<EventEntity> findAllByGenreId(String g);
+
 }
