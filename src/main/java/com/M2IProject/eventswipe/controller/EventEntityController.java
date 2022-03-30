@@ -22,14 +22,34 @@ public class EventEntityController {
 	@Autowired
 	private com.M2IProject.eventswipe.repository.EventEntityRepository eventEntityRepository;
 
-	@GetMapping(path = "/events-by-genre")
-	public @ResponseBody List<EventEntity> getAllEvents(@RequestParam(value = "genre") List<String> searchedGenres) {
+	@GetMapping(path = "/get-events-by-genre-name")
+	public @ResponseBody List<EventEntity> getAllEventsByName(
+			@RequestParam(value = "genre") List<String> searchedGenres) {
 		// This returns a JSON or XML with the users
 
 		List<EventEntity> eventsList = new ArrayList<>();
 
 		for (String g : searchedGenres) {
 			Iterable<EventEntity> resultByGenre = eventEntityRepository.findAllByGenreName(g);
+			resultByGenre.forEach(x -> eventsList.add(x));
+		}
+
+		Collections.shuffle(eventsList);
+		System.out.println(new Date());
+		// eventsList.forEach(x -> System.out.println(x.getImages_in_event()));
+
+		return eventsList;
+	}
+
+	@GetMapping(path = "/get-events-by-genre-id")
+	public @ResponseBody List<EventEntity> getAllEventsByGenreId(
+			@RequestParam(value = "id") List<String> searchedGenresId) {
+		// This returns a JSON or XML with the users
+
+		List<EventEntity> eventsList = new ArrayList<>();
+
+		for (String g : searchedGenresId) {
+			Iterable<EventEntity> resultByGenre = eventEntityRepository.findAllByGenreId(g);
 			resultByGenre.forEach(x -> eventsList.add(x));
 		}
 

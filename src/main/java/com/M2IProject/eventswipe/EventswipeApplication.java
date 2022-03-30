@@ -13,7 +13,6 @@ public class EventswipeApplication implements CommandLineRunner {
 
 	@Override
 	public void run(String... args) throws Exception {
-		System.out.println(
-				"<<<<<<<<<<<< Et salut ceci est un test du bon lancement de l'app, des bisous ! <<<<<<<<<<<<<<<<");
+		System.out.println("<<<<<<<<<<<< Confirmation du lancement de l'app <<<<<<<<<<<<<<<<");
 	}
 }

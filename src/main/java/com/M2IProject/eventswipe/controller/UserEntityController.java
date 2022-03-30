@@ -48,6 +48,7 @@ public class UserEntityController {
 		return UserEntityRepository.findAll();
 	}
 
+
 	//creating a delete mapping that deletes a specified book  
 	@DeleteMapping("/user/{userid}")  
 	private void deleteBook(@PathVariable("userid") int userid)   
