@@ -18,6 +18,8 @@ import lombok.NoArgsConstructor;
 public class SegmentEntity {
 	@Id
 	private String id;
+
 	@Column(length = 30)
 	private String name;
+
 }
