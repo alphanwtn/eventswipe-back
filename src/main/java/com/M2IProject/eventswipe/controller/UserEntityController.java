@@ -49,6 +49,7 @@ public class UserEntityController {
 	}
 
 
+
 	//creating a delete mapping that deletes a specified book  
 	@DeleteMapping("/user/{userid}")  
 	private void deleteBook(@PathVariable("userid") int userid)   
@@ -70,4 +71,5 @@ public class UserEntityController {
 		UserEntityService.saveOrUpdate(books);  
 		return books;  
 	} 		
+
 }
