@@ -4,9 +4,11 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+
+import java.util.Set;
+
 import javax.persistence.Column;
 import javax.persistence.ManyToMany;
-import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
 import lombok.AllArgsConstructor;
@@ -24,8 +26,9 @@ import lombok.NoArgsConstructor;
 
 public class UserEntity {
 	@Id
+	@Column
 	@GeneratedValue(strategy=GenerationType.AUTO)
-	private String id;
+	private int id;
     
 	@Column(length = 200)
 	private String last_name;
@@ -43,12 +46,15 @@ public class UserEntity {
 	private String password;
 	
 	@ManyToMany
-	private SegmentEntity segment;
+	private Set<SegmentEntity> segmentlist;
 	
 	@ManyToMany
-	private GenreEntity genre;
+	private Set<GenreEntity> genrelist;
 	
-	@OneToOne
-	private ListEntity list;
+	@ManyToMany
+	private Set<EventEntity> eventlist;
+	
+	@ManyToMany
+	private Set<SubGenreEntity> subgenrelist;
 
 }

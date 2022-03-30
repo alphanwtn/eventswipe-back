@@ -63,5 +63,8 @@ public class EventEntity {
 
 	@ManyToMany(cascade = CascadeType.ALL)
 	private Set<ImageEntity> images_in_event;
+	
+	@ManyToMany(mappedBy = "eventlist")
+	private Set<UserEntity> users;
 
 }
