@@ -36,7 +36,6 @@ public class EventEntityController {
 
 		Collections.shuffle(eventsList);
 		System.out.println(new Date());
-		// eventsList.forEach(x -> System.out.println(x.getImages_in_event()));
 
 		return eventsList;
 	}
@@ -54,10 +53,8 @@ public class EventEntityController {
 		}
 
 		Collections.shuffle(eventsList);
-		System.out.println(new Date());
-		// eventsList.forEach(x -> System.out.println(x.getImages_in_event()));
 
-		return eventsList;
+		return eventsList.subList(0, 30); // limitation du nombre d'event à 30
 	}
 
 	// exemple fonctionnel

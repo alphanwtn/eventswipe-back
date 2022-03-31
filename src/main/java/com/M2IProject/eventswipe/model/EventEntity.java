@@ -1,12 +1,14 @@
 package com.M2IProject.eventswipe.model;
 
 import java.util.Calendar;
-import java.util.Set;
+import java.util.List;
 
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
@@ -59,9 +61,11 @@ public class EventEntity {
 	private VenueEntity venue;
 
 	@ManyToMany(cascade = CascadeType.ALL)
-	private Set<AttractionEntity> attractions_in_event;
+	@JoinTable(name = "events_attractions", joinColumns = @JoinColumn(name = "events_id"), inverseJoinColumns = @JoinColumn(name = "attractions_id"))
+	private List<AttractionEntity> attractionsinevent;
 
 	@ManyToMany(cascade = CascadeType.ALL)
-	private Set<ImageEntity> images_in_event;
+	@JoinTable(name = "events_images", joinColumns = @JoinColumn(name = "events_id"), inverseJoinColumns = @JoinColumn(name = "images_id"))
+	private List<ImageEntity> imagesinevent;
 
 }

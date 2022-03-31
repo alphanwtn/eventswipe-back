@@ -1,6 +1,6 @@
 package com.M2IProject.eventswipe.model;
 
-import java.util.Set;
+import java.util.List;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -39,6 +39,6 @@ public class ImageEntity {
 	@Column
 	private Integer height;
 
-	@ManyToMany(mappedBy = "images_in_event")
-	private Set<EventEntity> events;
+	@ManyToMany
+	private List<EventEntity> eventsbyimage;
 }
