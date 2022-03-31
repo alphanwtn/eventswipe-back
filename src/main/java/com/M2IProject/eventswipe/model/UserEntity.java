@@ -4,7 +4,10 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.JoinTable;
 
+import java.util.HashSet;
 import java.util.Set;
 
 import javax.persistence.Column;
@@ -52,9 +55,13 @@ public class UserEntity {
 	private Set<GenreEntity> genrelist;
 	
 	@ManyToMany
-	private Set<EventEntity> eventlist;
+	private Set<SubGenreEntity> subgenrelist;
 	
 	@ManyToMany
-	private Set<SubGenreEntity> subgenrelist;
+	@JoinTable(
+			name = "users_eventlist", 
+			joinColumns = @JoinColumn(name = "user_id"), 
+			inverseJoinColumns = @JoinColumn(name = "event_id"))
+	private Set<EventEntity> eventlist;
 
 }

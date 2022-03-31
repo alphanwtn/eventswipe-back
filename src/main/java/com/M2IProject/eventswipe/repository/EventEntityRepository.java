@@ -1,5 +1,7 @@
 package com.M2IProject.eventswipe.repository;
 
+import java.util.List;
+
 import org.springframework.data.repository.CrudRepository;
 
 import com.M2IProject.eventswipe.model.EventEntity;
@@ -16,5 +18,7 @@ public interface EventEntityRepository extends CrudRepository<EventEntity, Integ
 	Iterable<EventEntity> findAllByGenreName(String g);
 
 	Iterable<EventEntity> findAllByGenreId(String g);
+	
+	List<EventEntity> findById(String id);
 
 }

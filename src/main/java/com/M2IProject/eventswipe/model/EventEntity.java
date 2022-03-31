@@ -1,6 +1,7 @@
 package com.M2IProject.eventswipe.model;
 
 import java.util.Calendar;
+import java.util.HashSet;
 import java.util.Set;
 
 import javax.persistence.CascadeType;
