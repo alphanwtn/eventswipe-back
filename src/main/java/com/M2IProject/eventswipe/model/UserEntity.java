@@ -4,68 +4,64 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.JoinTable;
 
-@Entity 
+import java.util.HashSet;
+import java.util.Set;
+
+import javax.persistence.Column;
+import javax.persistence.ManyToMany;
+import javax.persistence.Table;
+
+import lombok.AllArgsConstructor;
+import lombok.Data;
+import lombok.NoArgsConstructor;
+
+@Data
+//lombok allow to not put getter and setter
+@NoArgsConstructor
+@AllArgsConstructor
+//mark class as an Entity 
+@Entity
+//defining class name as Table name
+@Table(name = "users")
+
 public class UserEntity {
 	@Id
+	@Column
 	@GeneratedValue(strategy=GenerationType.AUTO)
-	private Integer id;
-
+	private int id;
+    
+	@Column(length = 200)
 	private String last_name;
-
+	
+	@Column(length = 200)
 	private String first_name;
-
+	
+	@Column(length = 200)
 	private String email;
-
+	
+	@Column(length = 200)
 	private String city;
-
+	
+	@Column(length = 200)
 	private String password;
+	
+	@ManyToMany
+	private Set<SegmentEntity> segmentlist;
+	
+	@ManyToMany
+	private Set<GenreEntity> genrelist;
+	
+	@ManyToMany
+	private Set<SubGenreEntity> subgenrelist;
+	
+	@ManyToMany
+	@JoinTable(
+			name = "users_eventlist", 
+			joinColumns = @JoinColumn(name = "user_id"), 
+			inverseJoinColumns = @JoinColumn(name = "event_id"))
+	private Set<EventEntity> eventlist;
 
-	public Integer getId() {
-		return id;
-	}
-
-	public void setId(Integer id) {
-		this.id = id;
-	}
-
-	public String getEmail() {
-		return email;
-	}
-
-	public void setEmail(String email) {
-		this.email = email;
-	}
-
-	public String getLast_name() {
-		return last_name;
-	}
-
-	public void setLast_name(String last_name) {
-		this.last_name = last_name;
-	}
-
-	public String getFirst_name() {
-		return first_name;
-	}
-
-	public void setFirst_name(String first_name) {
-		this.first_name = first_name;
-	}
-
-	public String getCity() {
-		return city;
-	}
-
-	public void setCity(String city) {
-		this.city = city;
-	}
-
-	public String getPassword() {
-		return password;
-	}
-
-	public void setPassword(String password) {
-		this.password = password;
-	}
 }

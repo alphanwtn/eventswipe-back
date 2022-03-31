@@ -65,7 +65,11 @@ public class EventEntity {
 	private List<AttractionEntity> attractionsinevent;
 
 	@ManyToMany(cascade = CascadeType.ALL)
+
 	@JoinTable(name = "events_images", joinColumns = @JoinColumn(name = "events_id"), inverseJoinColumns = @JoinColumn(name = "images_id"))
 	private List<ImageEntity> imagesinevent;
+
+	@ManyToMany(mappedBy = "eventlist")
+	private List<UserEntity> users;
 
 }
