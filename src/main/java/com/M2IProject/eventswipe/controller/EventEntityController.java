@@ -54,7 +54,10 @@ public class EventEntityController {
 
 		Collections.shuffle(eventsList);
 
-		return eventsList.subList(0, 30); // limitation du nombre d'event à 30
+		if (eventsList.size() > 30)
+			return eventsList.subList(0, 30);
+
+		return eventsList; // limitation du nombre d'event à 30
 	}
 
 	// exemple fonctionnel
