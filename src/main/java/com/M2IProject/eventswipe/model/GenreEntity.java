@@ -28,8 +28,8 @@ public class GenreEntity {
 
 	@OneToOne
 	private SegmentEntity inheritedsegment;
-	
-	@ManyToMany(mappedBy = "genrelist")
-	private Set<UserEntity> users;
+
+//	@ManyToMany(mappedBy = "genrelist")
+//	private Set<UserEntity> users;
 
 }

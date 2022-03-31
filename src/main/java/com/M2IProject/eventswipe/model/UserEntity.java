@@ -30,38 +30,38 @@ import lombok.NoArgsConstructor;
 public class UserEntity {
 	@Id
 	@Column
-	@GeneratedValue(strategy=GenerationType.AUTO)
+	@GeneratedValue(strategy = GenerationType.AUTO)
 	private int id;
-    
+
 	@Column(length = 200)
 	private String last_name;
-	
+
 	@Column(length = 200)
 	private String first_name;
-	
+
 	@Column(length = 200)
 	private String email;
-	
+
 	@Column(length = 200)
 	private String city;
-	
+
 	@Column(length = 200)
 	private String password;
-	
-	@ManyToMany
-	private Set<SegmentEntity> segmentlist;
-	
-	@ManyToMany
-	private Set<GenreEntity> genrelist;
-	
-	@ManyToMany
-	private Set<SubGenreEntity> subgenrelist;
-	
-	@ManyToMany
-	@JoinTable(
-			name = "users_eventlist", 
-			joinColumns = @JoinColumn(name = "user_id"), 
-			inverseJoinColumns = @JoinColumn(name = "event_id"))
-	private Set<EventEntity> eventlist;
+
+//	@ManyToMany
+//	private Set<SegmentEntity> segmentlist;
+//	
+//	@ManyToMany
+//	private Set<GenreEntity> genrelist;
+//	
+//	@ManyToMany
+//	private Set<SubGenreEntity> subgenrelist;
+//	
+//	@ManyToMany
+//	@JoinTable(
+//			name = "users_eventlist", 
+//			joinColumns = @JoinColumn(name = "user_id"), 
+//			inverseJoinColumns = @JoinColumn(name = "event_id"))
+//	private Set<EventEntity> eventlist;
 
 }

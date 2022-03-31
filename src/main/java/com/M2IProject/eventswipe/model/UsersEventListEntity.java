@@ -1,13 +1,10 @@
 package com.M2IProject.eventswipe.model;
 
-import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.JoinColumn;
-import javax.persistence.ManyToMany;
 import javax.persistence.Table;
 import javax.validation.constraints.NotBlank;
 
@@ -24,13 +21,13 @@ import lombok.NoArgsConstructor;
 public class UsersEventListEntity {
 	@Id
 	@Column
-	@GeneratedValue(strategy=GenerationType.AUTO)
+	@GeneratedValue(strategy = GenerationType.AUTO)
 	private int id;
 
 	@Column(name = "user_id")
-    private @NotBlank Integer userId;
-	
+	private @NotBlank Integer userId;
+
 	@Column(name = "event_id")
-    private @NotBlank String EventId;
-		
+	private @NotBlank String EventId;
+
 }

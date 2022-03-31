@@ -25,6 +25,6 @@ public class SegmentEntity {
 	@Column(length = 30)
 	private String name;
 
-	@ManyToMany(mappedBy = "segmentlist")
-	private Set<UserEntity> users;
+//	@ManyToMany(mappedBy = "segmentlist")
+//	private Set<UserEntity> users;
 }

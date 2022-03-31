@@ -1,0 +1,22 @@
+{"properties": [
+  {
+    "name": "scraper.language",
+    "type": "java.lang.String",
+    "description": "A description for 'scraper.language'"
+  },
+  {
+    "name": "scraper.country",
+    "type": "java.lang.String",
+    "description": "A description for 'scraper.country'"
+  },
+  {
+    "name": "scraper.tmkey",
+    "type": "java.lang.String",
+    "description": "A description for 'scraper.tmkey'"
+  },
+  {
+    "name": "scraper.daystoscrape",
+    "type": "java.lang.String",
+    "description": "A description for 'scraper.daystoscrape'"
+  }
+]}

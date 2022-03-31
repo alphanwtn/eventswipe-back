@@ -11,4 +11,6 @@ public interface GenreEntityRepository extends CrudRepository<GenreEntity, Integ
 
 	Iterable<GenreEntity> findByInheritedsegmentId(String segmentId);
 
+	GenreEntity findById(String id);
+
 }

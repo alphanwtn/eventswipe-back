@@ -29,6 +29,6 @@ public class SubGenreEntity {
 	@OneToOne
 	private GenreEntity inheritedgenre;
 
-	@ManyToMany(mappedBy = "subgenrelist")
-	private Set<UserEntity> users;
+//	@ManyToMany(mappedBy = "subgenrelist")
+//	private Set<UserEntity> users;
 }
