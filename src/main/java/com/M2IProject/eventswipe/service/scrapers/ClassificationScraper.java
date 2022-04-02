@@ -168,7 +168,6 @@ public class ClassificationScraper {
 			HttpResponse<String> response = client.send(request, BodyHandlers.ofString());
 			jsonBodyResponse = response.body();
 			System.out.println("Status  : " + response.statusCode());
-			Thread.sleep(1000);
 
 		} catch (IOException | InterruptedException e) {
 			e.printStackTrace();

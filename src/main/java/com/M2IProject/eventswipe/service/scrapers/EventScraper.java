@@ -83,9 +83,6 @@ public class EventScraper {
 		this.beginScrapeDateCalendar.setTime(todaydate);
 		this.endScrapeDateCalendar.setTime(todaydate);
 		this.endScrapeDateCalendar.add(Calendar.DATE, scrapeDayRange);
-
-		System.out.println(beginScrapeDateCalendar);
-		System.out.println(endScrapeDateCalendar);
 	}
 
 	/**
