@@ -8,12 +8,13 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.M2IProject.eventswipe.model.EventEntity;
+import com.M2IProject.eventswipe.repository.EventEntityRepository;
 
 @Service
 public class EventEntityService {
 
 	@Autowired
-	private com.M2IProject.eventswipe.repository.EventEntityRepository eventEntityRepository;
+	private EventEntityRepository eventEntityRepository;
 
 	public List<EventEntity> getAllEventsByGenreName(List<String> searchedGenres) {
 
