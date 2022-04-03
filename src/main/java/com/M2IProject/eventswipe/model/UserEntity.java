@@ -7,9 +7,6 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.JoinTable;
 
-import java.util.HashSet;
-import java.util.Set;
-
 import javax.persistence.Column;
 import javax.persistence.ManyToMany;
 import javax.persistence.Table;
@@ -47,21 +44,35 @@ public class UserEntity {
 
 	@Column(length = 200)
 	private String password;
-
-//	@ManyToMany
-//	private Set<SegmentEntity> segmentlist;
-//	
-//	@ManyToMany
-//	private Set<GenreEntity> genrelist;
-//	
-//	@ManyToMany
-//	private Set<SubGenreEntity> subgenrelist;
-//	
+	
 //	@ManyToMany
 //	@JoinTable(
 //			name = "users_eventlist", 
 //			joinColumns = @JoinColumn(name = "user_id"), 
 //			inverseJoinColumns = @JoinColumn(name = "event_id"))
 //	private Set<EventEntity> eventlist;
+
+//	@ManyToMany
+//	@JoinTable(
+//			name = "users_segmentlist", 
+//			joinColumns = @JoinColumn(name = "user_id"), 
+//			inverseJoinColumns = @JoinColumn(name = "segment_id"))
+//	private Set<SegmentEntity> segmentlist;
+//	
+//	@ManyToMany
+//	@JoinTable(
+//			name = "users_genrelist", 
+//			joinColumns = @JoinColumn(name = "user_id"), 
+//			inverseJoinColumns = @JoinColumn(name = "genre_id"))
+//	private Set<GenreEntity> genrelist;
+//	
+//	@ManyToMany
+//  @JoinTable(
+//			name = "users_subgenrelist", 
+//			joinColumns = @JoinColumn(name = "user_id"), 
+//			inverseJoinColumns = @JoinColumn(name = "subgenre_id"))
+//	private Set<SubGenreEntity> subgenrelist;
+//	
+
 
 }

@@ -9,7 +9,7 @@ public class GeneralController {
 
 	@RequestMapping("/")
 	public String displayIndex() {
-		System.out.println("Tentative d'affichage à l'écran");
+		System.out.println("Test de connexion");
 		return "index";
 	}
 }

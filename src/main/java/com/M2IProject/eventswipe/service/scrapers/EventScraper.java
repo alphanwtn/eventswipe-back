@@ -26,6 +26,10 @@ import com.M2IProject.eventswipe.model.ImageEntity;
 import com.M2IProject.eventswipe.model.SegmentEntity;
 import com.M2IProject.eventswipe.model.SubGenreEntity;
 import com.M2IProject.eventswipe.model.VenueEntity;
+import com.M2IProject.eventswipe.repository.EventEntityRepository;
+import com.M2IProject.eventswipe.repository.GenreEntityRepository;
+import com.M2IProject.eventswipe.repository.SegmentEntityRepository;
+import com.M2IProject.eventswipe.repository.SubGenreEntityRepository;
 import com.M2IProject.eventswipe.utils.NwtnParser;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.JsonMappingException;
@@ -43,13 +47,13 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 public class EventScraper {
 
 	@Autowired
-	private com.M2IProject.eventswipe.repository.SegmentEntityRepository segmentEntityRepository;
+	private SegmentEntityRepository segmentEntityRepository;
 	@Autowired
-	private com.M2IProject.eventswipe.repository.GenreEntityRepository genreEntityRepository;
+	private GenreEntityRepository genreEntityRepository;
 	@Autowired
-	private com.M2IProject.eventswipe.repository.SubGenreEntityRepository subGenreEntityRepository;
+	private SubGenreEntityRepository subGenreEntityRepository;
 	@Autowired
-	private com.M2IProject.eventswipe.repository.EventEntityRepository eventEntityRepository;
+	private EventEntityRepository eventEntityRepository;
 
 	@Value("${scraper.tmkey}")
 	private String CONSUMER_K;
@@ -83,9 +87,6 @@ public class EventScraper {
 		this.beginScrapeDateCalendar.setTime(todaydate);
 		this.endScrapeDateCalendar.setTime(todaydate);
 		this.endScrapeDateCalendar.add(Calendar.DATE, scrapeDayRange);
-
-		System.out.println(beginScrapeDateCalendar);
-		System.out.println(endScrapeDateCalendar);
 	}
 
 	/**

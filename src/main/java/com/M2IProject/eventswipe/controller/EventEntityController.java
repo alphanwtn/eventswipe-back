@@ -1,8 +1,5 @@
 package com.M2IProject.eventswipe.controller;
 
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.Date;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -17,53 +14,24 @@ import com.M2IProject.eventswipe.model.EventEntity;
 
 @Controller
 @CrossOrigin(origins = "http://localhost:4200")
-//@RequestMapping(path = "/api")
+//@RequestMapping(path = "events")
 public class EventEntityController {
+
 	@Autowired
-	private com.M2IProject.eventswipe.repository.EventEntityRepository eventEntityRepository;
+	private com.M2IProject.eventswipe.service.EventEntityService eventEntityService;
 
 	@GetMapping(path = "/get-events-by-genre-name")
 	public @ResponseBody List<EventEntity> getAllEventsByName(
-			@RequestParam(value = "genre") List<String> searchedGenres) {
-		// This returns a JSON or XML with the users
+			@RequestParam(value = "genre") List<String> searchedGenreNames) {
 
-		List<EventEntity> eventsList = new ArrayList<>();
-
-		for (String g : searchedGenres) {
-			Iterable<EventEntity> resultByGenre = eventEntityRepository.findAllByGenreName(g);
-			resultByGenre.forEach(x -> eventsList.add(x));
-		}
-
-		Collections.shuffle(eventsList);
-		System.out.println(new Date());
-
-		return eventsList;
+		return eventEntityService.getAllEventsByGenreName(searchedGenreNames);
 	}
 
 	@GetMapping(path = "/get-events-by-genre-id")
 	public @ResponseBody List<EventEntity> getAllEventsByGenreId(
-			@RequestParam(value = "id") List<String> searchedGenresId) {
-		// This returns a JSON or XML with the users
+			@RequestParam(value = "id") List<String> searchedGenreIds) {
 
-		List<EventEntity> eventsList = new ArrayList<>();
-
-		for (String g : searchedGenresId) {
-			Iterable<EventEntity> resultByGenre = eventEntityRepository.findAllByGenreId(g);
-			resultByGenre.forEach(x -> eventsList.add(x));
-		}
-
-		Collections.shuffle(eventsList);
-
-		if (eventsList.size() > 30)
-			return eventsList.subList(0, 30);
-
-		return eventsList; // limitation du nombre d'event à 30
+		return eventEntityService.getAllEventsByGenreId(searchedGenreIds);
 	}
 
-	// exemple fonctionnel
-	@GetMapping(path = "/allEventByGenre")
-	public @ResponseBody Iterable<EventEntity> getAllEvents2() {
-		// This returns a JSON or XML with the users
-		return eventEntityRepository.findByGenreName("Music");
-	}
 }
