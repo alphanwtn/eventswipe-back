@@ -24,6 +24,12 @@ public class ScrapersLaunchService {
 	@Autowired
 	private EventScraper evScraper;
 
+	/**
+	 * Lance les scrapers une fois que l'application est lancée
+	 * 
+	 * @throws IOException
+	 * @throws InterruptedException
+	 */
 	@EventListener(ApplicationReadyEvent.class)
 	public void runClassificationScraper() throws IOException, InterruptedException {
 		clScraper.run();

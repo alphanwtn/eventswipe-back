@@ -22,6 +22,9 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import com.M2IProject.eventswipe.model.GenreEntity;
 import com.M2IProject.eventswipe.model.SegmentEntity;
 import com.M2IProject.eventswipe.model.SubGenreEntity;
+import com.M2IProject.eventswipe.repository.GenreEntityRepository;
+import com.M2IProject.eventswipe.repository.SegmentEntityRepository;
+import com.M2IProject.eventswipe.repository.SubGenreEntityRepository;
 
 /**
  * Objet permettant la récupération de tous les genre, segments et subgenre de
@@ -35,11 +38,11 @@ import com.M2IProject.eventswipe.model.SubGenreEntity;
 public class ClassificationScraper {
 
 	@Autowired
-	private com.M2IProject.eventswipe.repository.SegmentEntityRepository segmentEntityRepository;
+	private SegmentEntityRepository segmentEntityRepository;
 	@Autowired
-	private com.M2IProject.eventswipe.repository.GenreEntityRepository genreEntityRepository;
+	private GenreEntityRepository genreEntityRepository;
 	@Autowired
-	private com.M2IProject.eventswipe.repository.SubGenreEntityRepository subGenreEntityRepository;
+	private SubGenreEntityRepository subGenreEntityRepository;
 
 	// DONT TOUCH
 	@Value("${scraper.tmkey}")

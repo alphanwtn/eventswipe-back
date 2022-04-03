@@ -1,4 +1,4 @@
-package com.M2IProject.eventswipe.service.scrapers;
+package com.M2IProject.eventswipe.service;
 
 import java.util.ArrayList;
 import java.util.List;
