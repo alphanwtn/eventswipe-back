@@ -5,6 +5,7 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.validation.constraints.NotBlank;
 
@@ -29,5 +30,7 @@ public class UsersEventListEntity {
 
 	@Column(name = "event_id")
 	private @NotBlank String EventId;
-
+	
+	@OneToMany(mappedBy="eventlist" , fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+	private List<EventEntity> eventsEntity = new List<Contract>();
 }

@@ -7,4 +7,7 @@ import com.M2IProject.eventswipe.repository.UserEntityRepository;
 public class UsersEventListEntityService {
 	@Autowired
 	UsersEventListEntityRepository UsersEventListEntityRepository;
+	
+	
+	
 }
