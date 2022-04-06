@@ -1,11 +1,8 @@
 package com.M2IProject.eventswipe.model;
 
-import java.util.Set;
-
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
-import javax.persistence.ManyToMany;
 import javax.persistence.Table;
 
 import lombok.AllArgsConstructor;
@@ -25,6 +22,4 @@ public class SegmentEntity {
 	@Column(length = 30)
 	private String name;
 
-//	@ManyToMany(mappedBy = "segmentlist")
-//	private Set<UserEntity> users;
 }
