@@ -37,7 +37,7 @@ public class UserEntity {
 	@Column(length = 200)
 	private String first_name;
 
-	@Column(length = 200)
+	@Column(length = 200, unique = true)
 	private String email;
 
 	@Column(length = 200)
@@ -45,9 +45,8 @@ public class UserEntity {
 
 	@Column(length = 200)
 	private String password;
-	
-	@OneToMany
-	(mappedBy="user" , fetch = FetchType.LAZY, cascade = CascadeType.ALL)
-    private List<UsersEventListEntity> userEvents;
+
+	@OneToMany(mappedBy = "user", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+	private List<UsersEventListEntity> userEvents;
 
 }

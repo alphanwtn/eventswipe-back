@@ -14,10 +14,4 @@ import com.M2IProject.eventswipe.model.UsersEventListEntity;
 
 public interface UsersEventListEntityRepository extends CrudRepository<UsersEventListEntity, Integer> {
 
-	@Query("SELECT userEvent.event FROM UsersEventListEntity as userEvent WHERE userEntity.user.id = :paramUserId") 
-	public List<EventEntity> findEventByUserId(@Param("paramUserId") Integer userId);
-	
-	@Query("SELECT userEvent.event FROM UsersEventListEntity as userEvent WHERE eventEntity.event.id = :paramEventId AND userEntity.user.id = :paramUserId"  ) 
-	public List<EventEntity> deleteEventByEventId(@Param("paramEventId") String eventId);
-		
 }

@@ -5,6 +5,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.M2IProject.eventswipe.model.UsersEventListEntity;
 
@@ -12,17 +13,24 @@ import com.M2IProject.eventswipe.model.UsersEventListEntity;
 public class UsersEventListEntityController {
 	@Autowired
 	private com.M2IProject.eventswipe.service.UsersEventListEntityService UsersEventListEntityService;
-	
-	    // creating a get mapping that retrieves the detail of a specific userEventList
-		@GetMapping("/eventlist/{userid}")
-		private UsersEventListEntity getUserEvents(@PathVariable("userid") int userid) {
-			return UsersEventListEntityService.getUsersEventListEntityByUserEntityId(userid);
-        }
-		
-		// creating a delete mapping that deletes a specified event in the userEventList
-		@DeleteMapping("/eventlist/{userid}/{eventid}")
-		private UsersEventListEntity deleteUserEvent(@PathVariable("eventid") String eventid, @PathVariable("userid") int userid) {
-			UsersEventListEntityService.deleteEventByEventId(eventid);
-			return UsersEventListEntityService.getUsersEventListEntityByUserEntityId(userid);
-		}
+
+	// creating a get mapping that retrieves the detail of a specific userEventList
+//		@GetMapping("/eventlist/{userid}")
+//		private UsersEventListEntity getUserEvents(@PathVariable("userid") int userid) {
+//			return UsersEventListEntityService.getUsersEventListEntityByUserEntityId(userid);
+//        }
+
+	// creating a delete mapping that deletes a specified event in the userEventList
+//		@DeleteMapping("/eventlist/{userid}/{eventid}")
+//		private UsersEventListEntity deleteUserEvent(@PathVariable("eventid") String eventid, @PathVariable("userid") int userid) {
+//			UsersEventListEntityService.deleteEventByEventId(eventid);
+//			return UsersEventListEntityService.getUsersEventListEntityByUserEntityId(userid);
+//		}
+
+	@GetMapping("/eventlist/{userid}/{eventid}")
+	private @ResponseBody void addUserEvent(@PathVariable("eventid") String eventId,
+			@PathVariable("userid") int userId) {
+		UsersEventListEntityService.addevent(userId, eventId);
+
+	}
 }
