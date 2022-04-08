@@ -1,15 +1,10 @@
 package com.M2IProject.eventswipe.model;
 
 import javax.persistence.Entity;
-import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import java.util.List;
-
-import javax.persistence.CascadeType;
 import javax.persistence.Column;
-import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
 import lombok.AllArgsConstructor;
@@ -24,7 +19,6 @@ import lombok.NoArgsConstructor;
 @Entity
 //defining class name as Table name
 @Table(name = "users")
-
 public class UserEntity {
 	@Id
 	@Column
@@ -45,8 +39,5 @@ public class UserEntity {
 
 	@Column(length = 200)
 	private String password;
-
-	@OneToMany(mappedBy = "user", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
-	private List<UsersEventListEntity> userEvents;
 
 }

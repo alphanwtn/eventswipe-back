@@ -3,6 +3,8 @@ package com.M2IProject.eventswipe.model;
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.EnumType;
+import javax.persistence.Enumerated;
 import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -21,29 +23,24 @@ import lombok.NoArgsConstructor;
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
-
 @Entity
 @Table(name = "users_eventlist", uniqueConstraints = { @UniqueConstraint(columnNames = { "user_id", "event_id" }) })
-
 public class UsersEventListEntity {
 	@Id
 	@Column
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	private int id;
-
-//	@Column(name = "user_id")
-//	private @NotBlank Integer userId;
-//
-//	@Column(name = "event_id")
-//	private @NotBlank String EventId;
+	
+	@Enumerated(EnumType.STRING)
+    private Status status;
 
 	@ManyToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
 	@JoinColumn(name = "user_id")
-	@JsonIgnore
+	//@JsonIgnore
 	private UserEntity user;
 
 	@ManyToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
 	@JoinColumn(name = "event_id")
-	@JsonIgnore
+	//@JsonIgnore
 	private EventEntity event;
 }
