@@ -44,11 +44,14 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 		http.httpBasic(); // invoque le formulaire de base du navigateur
 		http.authorizeHttpRequests().antMatchers("/user/**", "/delete**/**").hasRole("ADMIN");
 		http.authorizeHttpRequests().antMatchers("/users").authenticated();
+		http.authorizeHttpRequests().anyRequest().permitAll();
 		// http.authorizeHttpRequests().anyRequest().authenticated();
 		// http.authorizeHttpRequests().anyRequest().permitAll();
 		// http.authorizeHttpRequests().antMatchers("/user/**").permitAll(); // autorise
 		// tous les user a y accéder
 		http.csrf().disable(); // activation ou non du token anti csrf
+
+		http.logout().logoutSuccessUrl("/afterlogout.html");
 	}
 
 	@Bean
