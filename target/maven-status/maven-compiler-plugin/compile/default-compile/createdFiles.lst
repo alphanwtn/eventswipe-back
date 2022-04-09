@@ -2,6 +2,7 @@ com\M2IProject\eventswipe\model\SegmentEntity.class
 com\M2IProject\eventswipe\model\EventEntity.class
 com\M2IProject\eventswipe\security\SecurityConfig.class
 com\M2IProject\eventswipe\service\scrapers\ClassificationScraper.class
+com\M2IProject\eventswipe\service\securityservices\FilterActionService.class
 com\M2IProject\eventswipe\model\GenreEntity.class
 com\M2IProject\eventswipe\model\UsersEventListEntity.class
 com\M2IProject\eventswipe\repository\VenueEntityRepository.class
@@ -22,6 +23,7 @@ com\M2IProject\eventswipe\repository\EventEntityRepository.class
 com\M2IProject\eventswipe\service\EventEntityService.class
 com\M2IProject\eventswipe\EventswipeApplication.class
 com\M2IProject\eventswipe\repository\UserEntityRepository.class
+com\M2IProject\eventswipe\model\RoleEntity.class
 com\M2IProject\eventswipe\model\UserEntity.class
 com\M2IProject\eventswipe\controller\EventEntityController.class
 com\M2IProject\eventswipe\controller\GeneralController.class

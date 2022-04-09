@@ -37,7 +37,7 @@ public class UserEntity {
 	@Column(length = 30)
 	private String pseudo;
 
-	@Column(length = 200)
+	@Column(unique = true, length = 200)
 	private String email;
 
 	@Column(length = 200)
@@ -47,7 +47,7 @@ public class UserEntity {
 
 	private boolean active;
 
-	@ManyToMany
+	@ManyToMany(cascade = CascadeType.MERGE)
 	@JoinTable(name = "users_roles", joinColumns = @JoinColumn(name = "users_id"), inverseJoinColumns = @JoinColumn(name = "roles_id"))
 	private Set<RoleEntity> rolelist;
 

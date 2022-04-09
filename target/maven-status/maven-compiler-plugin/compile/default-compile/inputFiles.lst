@@ -6,6 +6,7 @@ D:\Engineering\__M2i JAVA FULLSTACK\000_Ateam\eventswipe-back\src\main\java\com\
 D:\Engineering\__M2i JAVA FULLSTACK\000_Ateam\eventswipe-back\src\main\java\com\M2IProject\eventswipe\model\UserEntity.java
 D:\Engineering\__M2i JAVA FULLSTACK\000_Ateam\eventswipe-back\src\main\java\com\M2IProject\eventswipe\model\VenueEntity.java
 D:\Engineering\__M2i JAVA FULLSTACK\000_Ateam\eventswipe-back\src\main\java\com\M2IProject\eventswipe\controller\GenreEntityController.java
+D:\Engineering\__M2i JAVA FULLSTACK\000_Ateam\eventswipe-back\src\main\java\com\M2IProject\eventswipe\service\securityservices\FilterActionService.java
 D:\Engineering\__M2i JAVA FULLSTACK\000_Ateam\eventswipe-back\src\main\java\com\M2IProject\eventswipe\repository\AttractionEntityRepository.java
 D:\Engineering\__M2i JAVA FULLSTACK\000_Ateam\eventswipe-back\src\main\java\com\M2IProject\eventswipe\repository\SegmentEntityRepository.java
 D:\Engineering\__M2i JAVA FULLSTACK\000_Ateam\eventswipe-back\src\main\java\com\M2IProject\eventswipe\repository\SubGenreEntityRepository.java
@@ -20,6 +21,7 @@ D:\Engineering\__M2i JAVA FULLSTACK\000_Ateam\eventswipe-back\src\main\java\com\
 D:\Engineering\__M2i JAVA FULLSTACK\000_Ateam\eventswipe-back\src\main\java\com\M2IProject\eventswipe\EventswipeApplication.java
 D:\Engineering\__M2i JAVA FULLSTACK\000_Ateam\eventswipe-back\src\main\java\com\M2IProject\eventswipe\model\UsersEventListEntity.java
 D:\Engineering\__M2i JAVA FULLSTACK\000_Ateam\eventswipe-back\src\main\java\com\M2IProject\eventswipe\repository\EventEntityRepository.java
+D:\Engineering\__M2i JAVA FULLSTACK\000_Ateam\eventswipe-back\src\main\java\com\M2IProject\eventswipe\model\RoleEntity.java
 D:\Engineering\__M2i JAVA FULLSTACK\000_Ateam\eventswipe-back\src\main\java\com\M2IProject\eventswipe\model\EventEntity.java
 D:\Engineering\__M2i JAVA FULLSTACK\000_Ateam\eventswipe-back\src\main\java\com\M2IProject\eventswipe\security\SecurityConfig.java
 D:\Engineering\__M2i JAVA FULLSTACK\000_Ateam\eventswipe-back\src\main\java\com\M2IProject\eventswipe\model\AttractionEntity.java

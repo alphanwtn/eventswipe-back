@@ -23,6 +23,6 @@ public class RoleEntity {
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	private int id;
 
-	@Column(length = 15)
+	@Column(length = 15, unique = true)
 	private String name;
 }
