@@ -44,9 +44,8 @@ public class UsersEventListEntityController {
 
 	// creating a delete mapping that deletes a specified event in an user's userEventList
 	@DeleteMapping("/{userid}/{eventid}")
-	private @ResponseBody List<EventEntity> deleteUserEvent(@PathVariable("userid") int userId, @PathVariable("eventid") String eventId ) {
+	private void deleteUserEvent(@PathVariable("userid") int userId, @PathVariable("eventid") String eventId ) {
 		usersEventListEntityService.deleteEventByEventId(userId, eventId);
-		return usersEventListEntityService.getAllEventList(userId);
 	}
 
 }

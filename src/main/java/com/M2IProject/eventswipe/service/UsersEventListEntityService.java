@@ -43,9 +43,7 @@ public class UsersEventListEntityService {
 	}
 
 	//deleting an event from an user's eventList and returning the modified eventlist
-	public List<EventEntity> deleteEventByEventId (int userId, String eventId) {
+	public void deleteEventByEventId (int userId, String eventId) {
 		eventEntityRepository.deleteUsersEventListByEventId(userId, eventId);
-		return eventEntityRepository.getAllEventList(userId);
-
 	}
 }
