@@ -38,7 +38,4 @@ public class ImageEntity {
 
 	@Column
 	private Integer height;
-
-	@ManyToMany
-	private List<EventEntity> eventsbyimage;
 }
