@@ -28,8 +28,8 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 						"select email principal, name role FROM users U RIGHT JOIN users_roles UR ON U.id = UR.users_id LEFT JOIN roles R ON UR.roles_id = R.id WHERE email=?")
 				.passwordEncoder(passwordEncoder).rolePrefix("ROLE_");
 
-		System.out.println(passwordEncoder.encode("chocapic"));
-		System.out.println(passwordEncoder.encode("jocelin"));
+		// System.out.println(passwordEncoder.encode("chocapic"));
+		// System.out.println(passwordEncoder.encode("jocelin"));
 
 		auth.inMemoryAuthentication().withUser("admin").password(passwordEncoder.encode("admin")).roles("ADMIN",
 				"USER");
