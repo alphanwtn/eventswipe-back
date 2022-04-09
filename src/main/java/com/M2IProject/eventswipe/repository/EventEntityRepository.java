@@ -34,7 +34,7 @@ public interface EventEntityRepository extends CrudRepository<EventEntity, Strin
 	public List<EventEntity> getAllEventListByStatus1(int userid, String status);
 	
 	@Transactional
-	@Modifying(clearAutomatically=true, flushAutomatically = true)
+	@Modifying(flushAutomatically = true)
 	@Query(value="DELETE FROM users_eventlist WHERE event_id = :eventid AND user_id = :userid", nativeQuery = true)
 	public void deleteUsersEventListByEventId(int userid, String eventid);
 }

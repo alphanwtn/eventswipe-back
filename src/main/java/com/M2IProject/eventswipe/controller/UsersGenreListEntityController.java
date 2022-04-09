@@ -34,7 +34,7 @@ public class UsersGenreListEntityController {
 		
 		// creating a delete mapping that deletes a specified genre in an user's userGenreList
 		@DeleteMapping("/{userid}/{genreid}")
-		private void deleteUserGenre(@PathVariable("userid") int userId, @PathVariable("genreid") String genreId ) {
+		private @ResponseBody void deleteUserGenre(@PathVariable("userid") int userId, @PathVariable("genreid") String genreId ) {
 			usersGenreListEntityService.deleteGenreByGenreId(userId, genreId);
 		}
 }

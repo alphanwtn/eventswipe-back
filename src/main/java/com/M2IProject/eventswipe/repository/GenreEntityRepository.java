@@ -1,8 +1,7 @@
 package com.M2IProject.eventswipe.repository;
 
 import java.util.List;
-
-
+import java.util.Optional;
 
 import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;
@@ -24,7 +23,7 @@ public interface GenreEntityRepository extends CrudRepository<GenreEntity, Integ
 	public List<GenreEntity> getAllGenreList(int userid);
 	
 	@Transactional
-	@Modifying(clearAutomatically=true, flushAutomatically = true)
+	@Modifying(flushAutomatically = true)
 	@Query(value="DELETE FROM users_genrelist WHERE users_genrelist.genre_id = :genreId AND user_id = :userId", nativeQuery = true)
 	public void deleteUsersGenreListByGenreId(int userId, String genreId);
 
