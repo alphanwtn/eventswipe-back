@@ -34,8 +34,10 @@ public class FilterActionService {
 
 		if (emailRequester.equals(emailOfSearchedUser) || rolesOfRequester.contains(adminAuthority))
 			return true;
-		else
+		else {
+			System.err.println("Utilisateur non autorisé");
 			return false;
+		}
 	}
 
 }

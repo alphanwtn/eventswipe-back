@@ -43,7 +43,7 @@ public class UserEntityController {
 	}
 
 	// creating post mapping that post the user detail in the database
-	@PostMapping("/user")
+	@PostMapping("/users")
 	private int saveUser(@RequestBody UserEntity user) {
 		UserEntityService.saveOrUpdate(user);
 		return user.getId();
