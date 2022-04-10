@@ -11,6 +11,6 @@ import com.M2IProject.eventswipe.model.UsersGenreListEntity;
 
 public interface UsersGenreListEntityRepository extends CrudRepository<UsersGenreListEntity, Integer> {
 	
-	Optional<UsersGenreListEntity> findByUser(Integer user_id);
+	Optional<UsersGenreListEntity> findByUser(int id);
 	
 }

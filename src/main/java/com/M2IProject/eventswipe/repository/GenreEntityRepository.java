@@ -1,8 +1,6 @@
 package com.M2IProject.eventswipe.repository;
 
 import java.util.List;
-import java.util.Optional;
-
 import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.CrudRepository;
@@ -15,6 +13,8 @@ import com.M2IProject.eventswipe.model.GenreEntity;
 
 public interface GenreEntityRepository extends CrudRepository<GenreEntity, Integer> {
 
+	Iterable<GenreEntity> findAllById(String string);
+	
 	Iterable<GenreEntity> findByInheritedsegmentId(String segmentId);
 
 	GenreEntity findById(String id);

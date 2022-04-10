@@ -9,15 +9,18 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.M2IProject.eventswipe.model.GenreEntity;
+import com.M2IProject.eventswipe.service.GenreEntityService;
 import com.M2IProject.eventswipe.service.UsersGenreListEntityService;
 
 @Controller
 @RequestMapping("/genrelists")
 public class UsersGenreListEntityController {
 	@Autowired UsersGenreListEntityService usersGenreListEntityService;
+	@Autowired GenreEntityService genreEntityService;
 	
 	// creating a get mapping that show all genres chosen by an user
 		@GetMapping("/{userid}")
@@ -37,4 +40,10 @@ public class UsersGenreListEntityController {
 		private @ResponseBody void deleteUserGenre(@PathVariable("userid") int userId, @PathVariable("genreid") String genreId ) {
 			usersGenreListEntityService.deleteGenreByGenreId(userId, genreId);
 		}
-}
+		
+		//creating a post  mapping that add a list of selected genres to a specific user's userGenreList
+		@PostMapping("/{userid}/add-all-selected-genres")
+		private  @ResponseBody void addAllSelectedGenres(@PathVariable("userid") int userId, @RequestParam(value = "genreId") List<String> selectedGenres) {
+			     usersGenreListEntityService.addAllSelectedGenres(userId, selectedGenres);
+		}
+}        
