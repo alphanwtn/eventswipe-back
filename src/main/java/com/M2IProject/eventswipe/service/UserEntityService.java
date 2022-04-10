@@ -28,7 +28,7 @@ public class UserEntityService {
 	}
 
 	//saving a specific record by using the method save() of CrudRepository  
-	public void saveOrUpdate(UserEntity user) {
+	public void save(UserEntity user) {
 		UserEntityRepository.save(user);
 		
 	}
@@ -40,7 +40,7 @@ public class UserEntityService {
 	}
 		
 	//updating a record  
-	public void update(UserEntity user, int userid)   
+	public void update(UserEntity user)   
 	{  
 		UserEntityRepository.save(user);  
 	} 

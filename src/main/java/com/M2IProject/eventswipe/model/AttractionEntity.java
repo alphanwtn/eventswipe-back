@@ -38,6 +38,4 @@ public class AttractionEntity {
 	@OneToOne(optional = true)
 	private SubGenreEntity subgenre;
 
-	@ManyToMany
-	private List<EventEntity> eventsbyattraction;
 }

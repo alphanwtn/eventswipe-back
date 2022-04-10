@@ -1,7 +1,6 @@
 package com.M2IProject.eventswipe.controller;
 
 import org.springframework.stereotype.Controller;
-
 import org.springframework.web.bind.annotation.RequestMapping;
 
 @Controller
