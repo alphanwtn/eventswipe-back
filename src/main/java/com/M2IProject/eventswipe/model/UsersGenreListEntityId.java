@@ -14,11 +14,13 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 @AllArgsConstructor
 public class UsersGenreListEntityId implements Serializable {
-	
+
+	private static final long serialVersionUID = 541340847342855026L;
+
 	@Column(name = "USER_ID")
 	private int user_id;
-	
+
 	@Column(name = "GENRE_ID")
 	private String genre_id;
-	
+
 }
