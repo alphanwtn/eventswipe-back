@@ -34,10 +34,9 @@ public class VenueEntity {
 	@Column(columnDefinition = "TEXT")
 	private String address_line;
 
-	@Column(length = 12)
-	private String gps_longitude;
-
-	@Column(length = 12)
+	@Column(length = 30)
 	private String gps_latitude;
 
+	@Column(length = 30)
+	private String gps_longitude;
 }

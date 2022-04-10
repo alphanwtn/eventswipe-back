@@ -17,7 +17,7 @@ public class FilterAction {
 	@Autowired
 	UserEntityRepository userEntityRepository;
 
-	public boolean isSelfUserOrHadAdminRole(int userid) {
+	public boolean isSelfUserOrHasAdminRole(int userid) {
 		SimpleGrantedAuthority adminAuthority = new SimpleGrantedAuthority("ROLE_ADMIN");
 		Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
 		String emailRequester = authentication.getName();

@@ -37,15 +37,25 @@ public class UserEntity {
 	@Column(length = 200)
 	private String last_name;
 
-	@Column(unique = true, length = 200)
+	@Column(unique = true, nullable = false, length = 200)
 	private String email;
 
 	@Column(length = 200)
 	private String city;
 
+	@Column(nullable = false)
 	private String password;
 
-	private boolean active;
+	@Column(name = "search_radius_km")
+	private Integer searchRadiusKm;
+
+	@Column(length = 30)
+	private String gps_latitude;
+
+	@Column(length = 30)
+	private String gps_longitude;
+
+	private Boolean active;
 
 	@ManyToMany(cascade = CascadeType.MERGE)
 	@JoinTable(name = "users_roles", joinColumns = @JoinColumn(name = "users_id"), inverseJoinColumns = @JoinColumn(name = "roles_id"))
