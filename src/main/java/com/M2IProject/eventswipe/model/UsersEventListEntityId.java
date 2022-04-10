@@ -4,6 +4,7 @@ import java.io.Serializable;
 
 import javax.persistence.Column;
 import javax.persistence.Embeddable;
+import javax.validation.constraints.NotNull;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -15,12 +16,11 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 public class UsersEventListEntityId implements Serializable {
 
-	private static final long serialVersionUID = 4382419970351790636L;
-
+	@NotNull
 	@Column(name = "USER_ID")
 	private int user_id;
 
+	@NotNull
 	@Column(name = "EVENT_ID")
 	private String event_id;
-
 }

@@ -14,6 +14,8 @@ import com.M2IProject.eventswipe.model.GenreEntity;
 
 public interface GenreEntityRepository extends CrudRepository<GenreEntity, Integer> {
 
+	Iterable<GenreEntity> findAllById(String string);
+
 	Iterable<GenreEntity> findByInheritedsegmentId(String segmentId);
 
 	GenreEntity findById(String id);

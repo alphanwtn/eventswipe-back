@@ -33,6 +33,13 @@ public class UsersGenreListEntityService {
 		userGenreList.setGenre(genre);
 		usersGenreListEntityRepository.save(userGenreList);
 	}
+	
+	public void addAllSelectedGenres(int userId, List<String> selectedGenres) {
+		for (String g : selectedGenres) {
+			Iterable<GenreEntity> genres = genreEntityRepository.findAllById(g);
+			genres.forEach(x -> addgenre(userId, x.getId()));
+		}
+	}
 
 	public List<GenreEntity> deleteGenreByGenreId(int userId, String genreId) {
 		genreEntityRepository.deleteUsersGenreListByGenreId(userId, genreId);

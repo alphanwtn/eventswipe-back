@@ -45,7 +45,8 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 		http.authorizeHttpRequests().antMatchers("/", "/login", "/logout").permitAll();
 		http.authorizeHttpRequests().antMatchers("/get-all-genres-by-segment-id").permitAll();
 		// Peut pas creer si deja user
-		http.authorizeHttpRequests().antMatchers(HttpMethod.POST, "/users").hasAnyRole("ADMIN", "ANONYMOUS");
+		// http.authorizeHttpRequests().antMatchers(HttpMethod.POST,
+		// "/users").hasAnyRole("ADMIN", "ANONYMOUS");
 
 		http.authorizeHttpRequests().anyRequest().authenticated();
 

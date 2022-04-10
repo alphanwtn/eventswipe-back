@@ -3,7 +3,6 @@ com\M2IProject\eventswipe\model\SegmentEntity.class
 com\M2IProject\eventswipe\model\EventEntity.class
 com\M2IProject\eventswipe\security\SecurityConfig.class
 com\M2IProject\eventswipe\service\scrapers\ClassificationScraper.class
-com\M2IProject\eventswipe\service\securityservices\FilterActionService.class
 com\M2IProject\eventswipe\model\GenreEntity.class
 com\M2IProject\eventswipe\model\UsersEventListEntity.class
 com\M2IProject\eventswipe\repository\VenueEntityRepository.class
@@ -40,3 +39,4 @@ com\M2IProject\eventswipe\controller\GeneralController.class
 com\M2IProject\eventswipe\model\AttractionEntity.class
 com\M2IProject\eventswipe\service\UserEntityService.class
 com\M2IProject\eventswipe\repository\AttractionEntityRepository.class
+com\M2IProject\eventswipe\security\FilterAction.class
