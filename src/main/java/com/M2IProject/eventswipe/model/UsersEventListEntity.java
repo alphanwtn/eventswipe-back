@@ -29,19 +29,19 @@ public class UsersEventListEntity {
 	@Column
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	private int id;
-	
+
 	@Enumerated(EnumType.STRING)
-    private Status status;
+	private Status status;
 
 	@NotNull
 	@ManyToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
 	@JoinColumn(name = "user_id")
-	//@JsonIgnore
+	// @JsonIgnore
 	private UserEntity user;
 
 	@NotNull
 	@ManyToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
 	@JoinColumn(name = "event_id")
-	//@JsonIgnore
+	// @JsonIgnore
 	private EventEntity event;
 }

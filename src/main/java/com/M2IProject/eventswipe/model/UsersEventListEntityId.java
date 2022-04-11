@@ -19,7 +19,7 @@ public class UsersEventListEntityId implements Serializable {
 	@NotNull
 	@Column(name = "USER_ID")
 	private int user_id;
-	
+
 	@NotNull
 	@Column(name = "EVENT_ID")
 	private String event_id;

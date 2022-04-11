@@ -19,16 +19,23 @@ public class UsersEventListEntityService {
 	UserEntityRepository userEntityRepository;
 	@Autowired
 	EventEntityRepository eventEntityRepository;
-	
-	//getting all users record by using the method findaAll() of CrudRepository disregarding the status
-		public List<EventEntity> getAllEventList(int id) {
-			return eventEntityRepository.getAllEventList(id);
-		}
-	
-    //getting all user's events that he liked
-	public List<EventEntity> getAllEventListByStatus(int userid, String status) {
-		return eventEntityRepository.getAllEventListByStatus1(userid, status);
+
+	// getting all records for a user by using the method findaAll() of CrudRepository
+	// disregarding the status
+	public List<EventEntity> getAllEventList(int id) {
+		return eventEntityRepository.getAllEventList(id);
 	}
+
+	// getting all user's events that he liked, disliked or alerted (by status)
+	public List<EventEntity> getAllEventListByStatus(int userid, String status) {
+		return eventEntityRepository.getAllEventListByStatus(userid, status);
+	}
+	
+	//getting all user's events liked and alerted in one request
+	public List<EventEntity> getAllEventLikedAndAlerted(int userid) {
+		return eventEntityRepository.getAllEventLikedAndAlerted(userid);
+	}
+
 	// saving a specific record by using the method save() of CrudRepository
 	public void addevent(int userId, String eventId, Status status) {
 		UsersEventListEntity userEventList = new UsersEventListEntity();
@@ -42,8 +49,14 @@ public class UsersEventListEntityService {
 		usersEventListEntityRepository.save(userEventList);
 	}
 
-	//deleting an event from an user's eventList and returning the modified eventlist
-	public void deleteEventByEventId (int userId, String eventId) {
-		eventEntityRepository.deleteUsersEventListByEventId(userId, eventId);
+	// deleting an event from an user's eventList and returning the modified
+	// eventlist
+	public void deleteUsersEventListByEventId(int userId, String eventId) {
+		usersEventListEntityRepository.deleteUsersEventListByEventId(userId, eventId);
+	}
+	
+	//modifying the status of an event in an user's eventlist here liked to disliked
+	public void changeStatusToDisliked(int userId, String eventId) {
+		usersEventListEntityRepository.changeStatusToDisliked(userId, eventId);
 	}
 }

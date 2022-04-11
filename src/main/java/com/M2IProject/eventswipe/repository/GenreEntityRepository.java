@@ -14,18 +14,17 @@ import com.M2IProject.eventswipe.model.GenreEntity;
 public interface GenreEntityRepository extends CrudRepository<GenreEntity, Integer> {
 
 	Iterable<GenreEntity> findAllById(String string);
-	
+
 	Iterable<GenreEntity> findByInheritedsegmentId(String segmentId);
 
 	GenreEntity findById(String id);
-	
-	@Query(value="select genres.id,name,inheritedsegment_id,users_genrelist.user_id from users_genrelist LEFT JOIN genres ON users_genrelist.genre_id = genres.id WHERE users_genrelist.user_id = :userid", nativeQuery = true)
+
+	@Query(value = "select genres.id,name,inheritedsegment_id,users_genrelist.user_id from users_genrelist LEFT JOIN genres ON users_genrelist.genre_id = genres.id WHERE users_genrelist.user_id = :userid", nativeQuery = true)
 	public List<GenreEntity> getAllGenreList(int userid);
-	
+
 	@Transactional
 	@Modifying(flushAutomatically = true)
-	@Query(value="DELETE FROM users_genrelist WHERE users_genrelist.genre_id = :genreId AND user_id = :userId", nativeQuery = true)
+	@Query(value = "DELETE FROM users_genrelist WHERE users_genrelist.genre_id = :genreId AND user_id = :userId", nativeQuery = true)
 	public void deleteUsersGenreListByGenreId(int userId, String genreId);
-
 
 }

@@ -15,13 +15,13 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 @AllArgsConstructor
 public class UsersGenreListEntityId implements Serializable {
-	
+
 	@NotNull
 	@Column(name = "USER_ID")
 	private int user_id;
-	
+
 	@NotNull
 	@Column(name = "GENRE_ID")
 	private String genre_id;
-	
+
 }

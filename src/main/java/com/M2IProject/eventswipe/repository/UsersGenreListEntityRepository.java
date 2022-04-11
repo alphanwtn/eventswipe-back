@@ -10,7 +10,7 @@ import com.M2IProject.eventswipe.model.UsersGenreListEntity;
 //CRUD refers Create, Read, Update, Delete
 
 public interface UsersGenreListEntityRepository extends CrudRepository<UsersGenreListEntity, Integer> {
-	
+
 	Optional<UsersGenreListEntity> findByUser(int id);
-	
+
 }
