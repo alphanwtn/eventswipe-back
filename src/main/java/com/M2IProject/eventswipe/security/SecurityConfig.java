@@ -1,5 +1,7 @@
 package com.M2IProject.eventswipe.security;
 
+import static java.lang.String.format;
+
 import javax.sql.DataSource;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -8,30 +10,34 @@ import org.springframework.context.annotation.Configuration;
 import org.springframework.http.HttpMethod;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
+import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
+import org.springframework.security.core.userdetails.UserDetailsService;
+import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 
+import com.M2IProject.eventswipe.repository.UserEntityRepository;
+
 @Configuration
+@EnableWebSecurity
 public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
 	@Autowired
 	private DataSource dataSource;
 
+	@Autowired
+	private UserEntityRepository userEntityRepository;
+
 	@Override
 	protected void configure(AuthenticationManagerBuilder auth) throws Exception {
 		PasswordEncoder passwordEncoder = passwordEncoder();
 
-		auth.jdbcAuthentication().dataSource(dataSource)
-				.usersByUsernameQuery(
-						"SELECT email as principal, password as credentials, active FROM users WHERE email=?")
-				.authoritiesByUsernameQuery(
-						"select email principal, name role FROM users U RIGHT JOIN users_roles UR ON U.id = UR.users_id LEFT JOIN roles R ON UR.roles_id = R.id WHERE email=?")
-				.passwordEncoder(passwordEncoder).rolePrefix("ROLE_");
+		// Load users from DB
+		auth.userDetailsService(username -> userEntityRepository.findByEmail(username)
+				.orElseThrow(() -> new UsernameNotFoundException(format("User: %s, not found", username))));
 
-		// System.out.println(passwordEncoder.encode("chocapic"));
-		// System.out.println(passwordEncoder.encode("jocelin"));
-
+		// Put users in memory
 		auth.inMemoryAuthentication().withUser("admin").password(passwordEncoder.encode("admin")).roles("ADMIN",
 				"USER");
 		auth.inMemoryAuthentication().withUser("user").password(passwordEncoder.encode("user")).roles("USER");
