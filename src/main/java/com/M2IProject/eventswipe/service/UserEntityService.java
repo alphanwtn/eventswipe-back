@@ -34,10 +34,8 @@ public class UserEntityService {
 
 	// getting a specific record by using the method findById() of CrudRepository
 	public UserEntity getUserEntityById(int userid) {
-		if (filterActionService.isSelfUserOrHasAdminRole(userid))
-			return UserEntityRepository.findById(userid).get();
-		else
-			return null;
+		return UserEntityRepository.findById(userid).get();
+
 	}
 
 	// saving a specific record by using the method save() of CrudRepository

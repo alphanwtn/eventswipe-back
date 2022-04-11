@@ -29,10 +29,8 @@ public class UserEntityController {
 	// creating a get mapping that retrieves all the users detail from the database
 	@GetMapping
 	private List<UserEntity> getAllUserEntity() {
-		if (filterActionService.hasAdminRole())
-			return userEntityService.getAllUserEntity();
-		else
-			return null;
+		return userEntityService.getAllUserEntity();
+
 	}
 
 	// creating a get mapping that retrieves the detail of a specific user

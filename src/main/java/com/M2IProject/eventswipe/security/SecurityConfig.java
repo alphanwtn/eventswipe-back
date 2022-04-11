@@ -42,13 +42,14 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 		// http.formLogin(); // invoque le formu de base de spring security
 		http.httpBasic(); // invoque le formulaire de base du navigateur
 
-		http.authorizeHttpRequests().antMatchers("/", "/login", "/logout").permitAll();
-		http.authorizeHttpRequests().antMatchers("/get-all-genres-by-segment-id").permitAll();
+		// http.authorizeHttpRequests().antMatchers("/", "/login",
+		// "/logout").permitAll();
+		// http.authorizeHttpRequests().antMatchers("/get-all-genres-by-segment-id").permitAll();
 		// Peut pas creer si deja user
 		// http.authorizeHttpRequests().antMatchers(HttpMethod.POST,
 		// "/users").hasAnyRole("ADMIN", "ANONYMOUS");
 
-		http.authorizeHttpRequests().anyRequest().authenticated();
+		http.authorizeHttpRequests().anyRequest().permitAll();
 
 		// http.authorizeHttpRequests().antMatchers("/user/**",
 		// "/delete**/**").hasRole("ADMIN");
