@@ -2,6 +2,7 @@ package com.M2IProject.eventswipe.security;
 
 import static java.lang.String.format;
 
+import javax.servlet.http.HttpServletResponse;
 import javax.sql.DataSource;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -12,10 +13,15 @@ import org.springframework.security.config.annotation.authentication.builders.Au
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
+import org.springframework.security.config.http.SessionCreationPolicy;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
+import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
+import org.springframework.web.cors.CorsConfiguration;
+import org.springframework.web.cors.UrlBasedCorsConfigurationSource;
+import org.springframework.web.filter.CorsFilter;
 
 import com.M2IProject.eventswipe.repository.UserEntityRepository;
 
@@ -24,10 +30,10 @@ import com.M2IProject.eventswipe.repository.UserEntityRepository;
 public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
 	@Autowired
-	private DataSource dataSource;
+	private UserEntityRepository userEntityRepository;
 
 	@Autowired
-	private UserEntityRepository userEntityRepository;
+	private JwtTokenFilter jwtTokenFilter;
 
 	@Override
 	protected void configure(AuthenticationManagerBuilder auth) throws Exception {
@@ -45,26 +51,58 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
 	@Override // Definit les requetes autorisée en fct des roles des users
 	protected void configure(HttpSecurity http) throws Exception {
-		// http.formLogin(); // invoque le formu de base de spring security
-		http.httpBasic(); // invoque le formulaire de base du navigateur
 
-		http.authorizeHttpRequests().antMatchers("/", "/login", "/logout").permitAll();
-		http.authorizeHttpRequests().antMatchers("/get-all-genres-by-segment-id").permitAll();
+		// Enable CORS and disable CSRF
+		http = http.cors().and().csrf().disable();
+
+		// Set session management to stateless
+		http = http.sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS).and();
+
+		// Set unauthorized requests exception handler
+		http = http.exceptionHandling().authenticationEntryPoint((request, response, ex) -> {
+			response.sendError(HttpServletResponse.SC_UNAUTHORIZED, ex.getMessage());
+		}).and();
+
+		// Set permissions on endpoints
+		http.authorizeRequests()
+				// Our public endpoints
+				.anyRequest().permitAll();
+
+		http.addFilterBefore(jwtTokenFilter, UsernamePasswordAuthenticationFilter.class);
+
+		// http.httpBasic(); // invoque le formulaire de base du navigateur
+
+		// http.authorizeHttpRequests().antMatchers("/", "/login",
+		// "/logout").permitAll();
+		// http.authorizeHttpRequests().antMatchers("/get-all-genres-by-segment-id").permitAll();
 		// Peut pas creer si deja user
 		// http.authorizeHttpRequests().antMatchers(HttpMethod.POST,
 		// "/users").hasAnyRole("ADMIN", "ANONYMOUS");
 
-		http.authorizeHttpRequests().anyRequest().authenticated();
+		// http.authorizeHttpRequests().anyRequest().authenticated();
 
 		// http.authorizeHttpRequests().antMatchers("/user/**",
 		// "/delete**/**").hasRole("ADMIN");
-		http.csrf().disable(); // activation ou non du token anti csrf
+		// activation ou non du token anti csrf
 		http.logout().logoutSuccessUrl("/afterlogout.html");
 	}
 
 	@Bean
 	public PasswordEncoder passwordEncoder() {
 		return new BCryptPasswordEncoder();
+	}
+
+	// Used by spring security if CORS is enabled.
+	@Bean
+	public CorsFilter corsFilter() {
+		UrlBasedCorsConfigurationSource source = new UrlBasedCorsConfigurationSource();
+		CorsConfiguration config = new CorsConfiguration();
+		config.setAllowCredentials(true);
+		config.addAllowedOrigin("*");
+		config.addAllowedHeader("*");
+		config.addAllowedMethod("*");
+		source.registerCorsConfiguration("/**", config);
+		return new CorsFilter(source);
 	}
 
 }
