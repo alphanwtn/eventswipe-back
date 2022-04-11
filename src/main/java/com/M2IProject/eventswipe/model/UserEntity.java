@@ -102,4 +102,8 @@ public class UserEntity implements UserDetails {
 		// TODO Auto-generated method stub
 		return true;
 	}
+
+	public UserEntity(String email, String password) {
+		// TODO Auto-generated constructor stub
+	}
 }

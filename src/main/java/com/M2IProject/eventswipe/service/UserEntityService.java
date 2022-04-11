@@ -9,6 +9,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
+import com.M2IProject.eventswipe.model.ERole;
 import com.M2IProject.eventswipe.model.RoleEntity;
 import com.M2IProject.eventswipe.model.UserEntity;
 import com.M2IProject.eventswipe.repository.UserEntityRepository;
@@ -42,7 +43,7 @@ public class UserEntityService {
 
 	// saving a specific record by using the method save() of CrudRepository
 	public void save(UserEntity user) {
-		RoleEntity userrole = new RoleEntity(2, "USER"); // role user by default
+		RoleEntity userrole = new RoleEntity(2, ERole.ROLE_USER); // role user by default
 		Set<RoleEntity> roles = new HashSet<>();
 		roles.add(userrole);
 
