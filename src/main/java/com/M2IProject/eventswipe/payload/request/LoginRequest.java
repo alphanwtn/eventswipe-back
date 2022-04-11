@@ -9,12 +9,12 @@ public class LoginRequest {
 	@NotBlank
 	private String password;
 
-	public String getUsername() {
+	public String getEmail() {
 		return email;
 	}
 
-	public void setUsername(String username) {
-		this.email = username;
+	public void setEmail(String email) {
+		this.email = email;
 	}
 
 	public String getPassword() {
@@ -24,4 +24,10 @@ public class LoginRequest {
 	public void setPassword(String password) {
 		this.password = password;
 	}
+
+	@Override
+	public String toString() {
+		return "LoginRequest [email=" + email + ", password=" + password + "]";
+	}
+
 }

@@ -104,6 +104,7 @@ public class UserEntity implements UserDetails {
 	}
 
 	public UserEntity(String email, String password) {
-		// TODO Auto-generated constructor stub
+		this.email = email;
+		this.password = password;
 	}
 }
