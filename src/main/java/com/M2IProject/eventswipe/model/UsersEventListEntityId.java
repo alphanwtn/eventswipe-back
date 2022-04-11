@@ -23,5 +23,4 @@ public class UsersEventListEntityId implements Serializable {
 	@NotNull
 	@Column(name = "EVENT_ID")
 	private String event_id;
-
 }

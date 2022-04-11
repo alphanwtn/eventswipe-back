@@ -16,23 +16,13 @@ import lombok.NoArgsConstructor;
 @Data
 
 @Entity
-@Table(name = "images")
-
-public class ImageEntity {
+@Table(name = "roles")
+public class RoleEntity {
 
 	@Id
-	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	@GeneratedValue(strategy = GenerationType.AUTO)
 	private int id;
 
-	@Column
-	private String url;
-
-	@Column(length = 6)
-	private String ratio;
-
-	@Column
-	private Integer width;
-
-	@Column
-	private Integer height;
+	@Column(length = 15, unique = true)
+	private String name;
 }

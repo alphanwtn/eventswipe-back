@@ -6,6 +6,12 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Column;
 import javax.persistence.Table;
+import javax.persistence.JoinColumn;
+import javax.persistence.JoinTable;
+import javax.persistence.ManyToMany;
+import javax.persistence.CascadeType;
+
+import java.util.Set;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -20,24 +26,38 @@ import lombok.NoArgsConstructor;
 //defining class name as Table name
 @Table(name = "users")
 public class UserEntity {
+
 	@Id
-	@Column
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	private int id;
 
 	@Column(length = 200)
-	private String last_name;
-
-	@Column(length = 200)
 	private String first_name;
 
-	@Column(length = 200, unique = true)
+	@Column(length = 200)
+	private String last_name;
+
+	@Column(unique = true, nullable = false, length = 200)
 	private String email;
 
 	@Column(length = 200)
 	private String city;
 
-	@Column(length = 200)
+	@Column(nullable = false)
 	private String password;
 
+	@Column(name = "search_radius_km")
+	private Integer searchRadiusKm;
+
+	@Column(length = 30)
+	private String gps_latitude;
+
+	@Column(length = 30)
+	private String gps_longitude;
+
+	private Boolean active;
+
+	@ManyToMany(cascade = CascadeType.MERGE)
+	@JoinTable(name = "users_roles", joinColumns = @JoinColumn(name = "users_id"), inverseJoinColumns = @JoinColumn(name = "roles_id"))
+	private Set<RoleEntity> roles;
 }

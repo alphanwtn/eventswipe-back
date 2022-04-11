@@ -1,11 +1,8 @@
 package com.M2IProject.eventswipe.model;
 
-import java.util.List;
-
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
-import javax.persistence.ManyToMany;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
@@ -38,6 +35,4 @@ public class AttractionEntity {
 	@OneToOne(optional = true)
 	private SubGenreEntity subgenre;
 
-	@ManyToMany
-	private List<EventEntity> eventsbyattraction;
 }
