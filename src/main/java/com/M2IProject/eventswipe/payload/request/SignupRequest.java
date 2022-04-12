@@ -2,8 +2,18 @@ package com.M2IProject.eventswipe.payload.request;
 
 import java.util.Set;
 
-import javax.validation.constraints.*;
+import javax.persistence.Column;
+import javax.validation.constraints.Email;
+import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.Size;
 
+import lombok.AllArgsConstructor;
+import lombok.Data;
+import lombok.NoArgsConstructor;
+
+@Data
+@NoArgsConstructor
+@AllArgsConstructor
 public class SignupRequest {
 
 	@NotBlank
@@ -11,33 +21,16 @@ public class SignupRequest {
 	@Email
 	private String email;
 
-	private Set<String> role;
-
 	@NotBlank
 	@Size(min = 6, max = 40)
 	private String password;
 
-	public String getEmail() {
-		return email;
-	}
+	private String first_name;
 
-	public void setEmail(String email) {
-		this.email = email;
-	}
+	private String last_name;
 
-	public String getPassword() {
-		return password;
-	}
+	private String city;
 
-	public void setPassword(String password) {
-		this.password = password;
-	}
+	private Set<String> role;
 
-	public Set<String> getRole() {
-		return this.role;
-	}
-
-	public void setRole(Set<String> role) {
-		this.role = role;
-	}
 }

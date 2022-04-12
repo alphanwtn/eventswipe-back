@@ -107,4 +107,12 @@ public class UserEntity implements UserDetails {
 		this.email = email;
 		this.password = password;
 	}
+
+	public UserEntity(String email, String password, String first_name, String last_name, String city) {
+		this.email = email;
+		this.password = password;
+		this.first_name = first_name;
+		this.last_name = last_name;
+		this.city = city;
+	}
 }
