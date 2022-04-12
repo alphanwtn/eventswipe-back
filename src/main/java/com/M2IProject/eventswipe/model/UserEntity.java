@@ -27,37 +27,37 @@ import lombok.NoArgsConstructor;
 @Table(name = "users")
 public class UserEntity {
 
-	@Id
-	@GeneratedValue(strategy = GenerationType.AUTO)
-	private int id;
+    @Id
+    @GeneratedValue(strategy = GenerationType.AUTO)
+    private int id;
 
-	@Column(length = 200)
-	private String first_name;
+    @Column(length = 200)
+    private String first_name;
 
-	@Column(length = 200)
-	private String last_name;
+    @Column(length = 200)
+    private String last_name;
 
-	@Column(unique = true, nullable = false, length = 200)
-	private String email;
+    @Column(unique = true, nullable = false, length = 200)
+    private String email;
 
-	@Column(length = 200)
-	private String city;
+    @Column(length = 200)
+    private String city;
 
-	@Column(nullable = false)
-	private String password;
+    @Column(nullable = false)
+    private String password;
 
-	@Column(name = "search_radius_km")
-	private Integer searchRadiusKm;
+    @Column(name = "search_radius_km")
+    private Integer searchRadiusKm;
 
-	@Column(length = 30)
-	private String gps_latitude;
+    @Column(length = 30)
+    private String gps_latitude;
 
-	@Column(length = 30)
-	private String gps_longitude;
+    @Column(length = 30)
+    private String gps_longitude;
 
-	private Boolean active;
+    private Boolean active;
 
-	@ManyToMany(cascade = CascadeType.MERGE)
-	@JoinTable(name = "users_roles", joinColumns = @JoinColumn(name = "users_id"), inverseJoinColumns = @JoinColumn(name = "roles_id"))
-	private Set<RoleEntity> roles;
+    @ManyToMany(cascade = CascadeType.MERGE)
+    @JoinTable(name = "users_roles", joinColumns = @JoinColumn(name = "users_id"), inverseJoinColumns = @JoinColumn(name = "roles_id"))
+    private Set<RoleEntity> roles;
 }

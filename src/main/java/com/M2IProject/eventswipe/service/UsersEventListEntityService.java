@@ -21,8 +21,7 @@ public class UsersEventListEntityService {
     EventEntityRepository eventEntityRepository;
 
     // getting all records for a user by using the method findaAll() of
-    // CrudRepository
-    // disregarding the status
+    // CrudRepository disregarding the status
     public List<EventEntity> getAllEventList(int id) {
 	return eventEntityRepository.getAllEventList(id);
     }
