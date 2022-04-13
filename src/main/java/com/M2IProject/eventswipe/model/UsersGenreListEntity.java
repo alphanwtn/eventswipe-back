@@ -31,12 +31,12 @@ public class UsersGenreListEntity {
 	@NotNull
 	@ManyToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
 	@JoinColumn(name = "user_id")
-	//@JsonIgnore
+	// @JsonIgnore
 	private UserEntity user;
-	
+
 	@NotNull
 	@ManyToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
 	@JoinColumn(name = "genre_id")
-	//@JsonIgnore
+	// @JsonIgnore
 	private GenreEntity genre;
 }

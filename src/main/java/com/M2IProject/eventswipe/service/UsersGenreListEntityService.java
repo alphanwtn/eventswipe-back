@@ -19,7 +19,7 @@ public class UsersGenreListEntityService {
 	UserEntityRepository userEntityRepository;
 	@Autowired
 	GenreEntityRepository genreEntityRepository;
-	
+
 	public List<GenreEntity> getAllGenreList(int userid) {
 		return genreEntityRepository.getAllGenreList(userid);
 	}
@@ -28,12 +28,12 @@ public class UsersGenreListEntityService {
 		UsersGenreListEntity userGenreList = new UsersGenreListEntity();
 		UserEntity user = userEntityRepository.findById(userId).get();
 		GenreEntity genre = genreEntityRepository.findById(genreId);
-		
+
 		userGenreList.setUser(user);
 		userGenreList.setGenre(genre);
 		usersGenreListEntityRepository.save(userGenreList);
 	}
-	
+
 	public void addAllSelectedGenres(int userId, List<String> selectedGenres) {
 		for (String g : selectedGenres) {
 			Iterable<GenreEntity> genres = genreEntityRepository.findAllById(g);

@@ -34,6 +34,7 @@ public class UserEntityService {
 
 	// getting a specific record by using the method findById() of CrudRepository
 	public UserEntity getUserEntityById(int userid) {
+
 		return UserEntityRepository.findById(userid).get();
 	}
 
@@ -47,17 +48,13 @@ public class UserEntityService {
 		user.setPassword(passwordEncoder.encode(pwd));
 		user.setRoles(roles);
 		UserEntityRepository.save(user);
+
 	}
 
 	// deleting a specific record by using the method deleteById() of CrudRepository
 	public void delete(int id) {
 		UserEntityRepository.deleteById(id);
 
-	}
-
-	// updating a record
-	public void update(UserEntity user, int userid) {
-		UserEntityRepository.save(user);
 	}
 
 	// updating a record

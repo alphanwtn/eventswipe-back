@@ -9,6 +9,7 @@ import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
@@ -37,20 +38,41 @@ public class UsersEventListEntityController {
 		return usersEventListEntityService.getAllEventListByStatus(userid, status);
 	}
 
+	// creating a get mapping that show all user's events liked and alerted in one
+	// request
+	@GetMapping("/{userid}/allLikedAndAlerted")
+	private @ResponseBody List<EventEntity> getAllEventLikedAndAlerted(@PathVariable("userid") int userid) {
+		return usersEventListEntityService.getAllEventLikedAndAlerted(userid);
+	}
+
 	// creating a post mapping that add an event to a specific user's userEventList
 	@PostMapping("/{userid}/{eventid}/{STATUS}")
 	private @ResponseBody void addUserEvent(@PathVariable("userid") int userId, @PathVariable("eventid") String eventId,
 			@PathVariable("STATUS") Status status) {
 		usersEventListEntityService.addevent(userId, eventId, status);
-
 	}
 
 	// creating a delete mapping that deletes a specified event in an user's
 	// userEventList
 	@DeleteMapping("/{userid}/{eventid}")
-	private @ResponseBody void deleteUserEvent(@PathVariable("userid") int userId,
+	private @ResponseBody void deleteUsersEventListByEventId(@PathVariable("userid") int userId,
 			@PathVariable("eventid") String eventId) {
-		usersEventListEntityService.deleteEventByEventId(userId, eventId);
+		usersEventListEntityService.deleteUsersEventListByEventId(userId, eventId);
 	}
 
+	// creating a put mapping that modify the status of an event in a users's
+	// eventlist here liked to alerted
+	@PutMapping("/{userid}/{eventid}/disliked")
+	private @ResponseBody void changeStatusToDisliked(@PathVariable("userid") int userid,
+			@PathVariable("eventid") String eventid) {
+		usersEventListEntityService.changeStatusToDisliked(userid, eventid);
+	}
+
+	// modifying the status of an event in a users's eventlist here liked to alerted
+	// and vice versa
+	@PutMapping("/{userid}/{eventid}/switch")
+	private @ResponseBody void switchLikedAndAlerted(@PathVariable("userid") int userid,
+			@PathVariable("eventid") String eventid) {
+		usersEventListEntityService.switchLikedAndAlerted(userid, eventid);
+	}
 }
