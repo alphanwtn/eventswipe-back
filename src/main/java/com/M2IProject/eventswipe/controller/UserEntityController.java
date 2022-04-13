@@ -3,7 +3,7 @@ package com.M2IProject.eventswipe.controller;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
-
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -18,47 +18,48 @@ import com.M2IProject.eventswipe.security.FilterAction;
 import com.M2IProject.eventswipe.service.UserEntityService;
 
 @RestController
+@CrossOrigin(origins = "http://localhost:4200")
 @RequestMapping(path = "/users")
 public class UserEntityController {
-	@Autowired
-	UserEntityService userEntityService;
+    @Autowired
+    UserEntityService userEntityService;
 
-	@Autowired
-	FilterAction filterActionService;
+    @Autowired
+    FilterAction filterActionService;
 
-	// creating a get mapping that retrieves all the users detail from the database
-	@GetMapping
-	private List<UserEntity> getAllUserEntity() {
-		return userEntityService.getAllUserEntity();
+    // creating a get mapping that retrieves all the users detail from the database
+    @GetMapping
+    private List<UserEntity> getAllUserEntity() {
+	return userEntityService.getAllUserEntity();
 
-	}
+    }
 
-	// creating a get mapping that retrieves the detail of a specific user
-	@GetMapping("/{userid}")
-	private UserEntity getUsers(@PathVariable("userid") int userid) {
-		return userEntityService.getUserEntityById(userid);
-	}
+    // creating a get mapping that retrieves the detail of a specific user
+    @GetMapping("/{userid}")
+    private UserEntity getUsers(@PathVariable("userid") int userid) {
+	return userEntityService.getUserEntityById(userid);
+    }
 
-	// creating post mapping that post the user detail in the database
+    // creating post mapping that post the user detail in the database
 
-	@PostMapping
-	private int saveUser(@RequestBody UserEntity user) {
-		userEntityService.save(user);
-		return user.getId();
-	}
+    @PostMapping
+    private int saveUser(@RequestBody UserEntity user) {
+	userEntityService.save(user);
+	return user.getId();
+    }
 
-	// creating a delete mapping that deletes a specified user
-	@DeleteMapping("/{userid}")
-	private List<UserEntity> deleteUserEntity(@PathVariable("userid") int userid) {
-		userEntityService.delete(userid);
-		return userEntityService.getAllUserEntity();
-	}
+    // creating a delete mapping that deletes a specified user
+    @DeleteMapping("/{userid}")
+    private List<UserEntity> deleteUserEntity(@PathVariable("userid") int userid) {
+	userEntityService.delete(userid);
+	return userEntityService.getAllUserEntity();
+    }
 
-	// creating put mapping that updates the user detail
-	@PutMapping
-	private UserEntity update(@RequestBody UserEntity user) {
-		userEntityService.update(user);
-		return user;
-	}
+    // creating put mapping that updates the user detail
+    @PutMapping
+    private UserEntity update(@RequestBody UserEntity user) {
+	userEntityService.update(user);
+	return user;
+    }
 
 }
