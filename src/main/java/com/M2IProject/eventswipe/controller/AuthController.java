@@ -21,12 +21,12 @@ import org.springframework.web.bind.annotation.RestController;
 import com.M2IProject.eventswipe.model.ERole;
 import com.M2IProject.eventswipe.model.RoleEntity;
 import com.M2IProject.eventswipe.model.UserEntity;
-import com.M2IProject.eventswipe.payload.request.LoginRequest;
-import com.M2IProject.eventswipe.payload.request.SignupRequest;
-import com.M2IProject.eventswipe.payload.response.JwtResponse;
-import com.M2IProject.eventswipe.payload.response.MessageResponse;
 import com.M2IProject.eventswipe.repository.UserEntityRepository;
 import com.M2IProject.eventswipe.security.jwt.JwtUtils;
+import com.M2IProject.eventswipe.security.payload.request.LoginRequest;
+import com.M2IProject.eventswipe.security.payload.request.SignupRequest;
+import com.M2IProject.eventswipe.security.payload.response.JwtResponse;
+import com.M2IProject.eventswipe.security.payload.response.MessageResponse;
 import com.M2IProject.eventswipe.service.UserDetailsImpl;
 
 @CrossOrigin(origins = "*", maxAge = 3600)
@@ -46,7 +46,6 @@ public class AuthController {
 
 	@PostMapping("/signin")
 	public ResponseEntity<?> authenticateUser(@Valid @RequestBody LoginRequest loginRequest) {
-		System.out.println(loginRequest);
 		Authentication authentication = authenticationManager.authenticate(
 				new UsernamePasswordAuthenticationToken(loginRequest.getEmail(), loginRequest.getPassword()));
 		SecurityContextHolder.getContext().setAuthentication(authentication);
@@ -55,7 +54,6 @@ public class AuthController {
 		UserDetailsImpl userDetails = (UserDetailsImpl) authentication.getPrincipal();
 		List<String> roles = userDetails.getAuthorities().stream().map(item -> item.getAuthority())
 				.collect(Collectors.toList());
-		System.out.println("*************");
 
 		return ResponseEntity.ok(new JwtResponse(jwt, userDetails.getId(), userDetails.getUsername(), roles));
 	}

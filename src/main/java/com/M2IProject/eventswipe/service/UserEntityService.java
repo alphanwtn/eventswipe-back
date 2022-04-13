@@ -13,15 +13,14 @@ import com.M2IProject.eventswipe.model.ERole;
 import com.M2IProject.eventswipe.model.RoleEntity;
 import com.M2IProject.eventswipe.model.UserEntity;
 import com.M2IProject.eventswipe.repository.UserEntityRepository;
-import com.M2IProject.eventswipe.security.FilterAction;
 
 @Service
 public class UserEntityService {
 	@Autowired
 	UserEntityRepository UserEntityRepository;
 
-	@Autowired
-	FilterAction filterActionService;
+//	@Autowired
+//	FilterAction filterActionService;
 
 	@Autowired
 	PasswordEncoder passwordEncoder;
@@ -35,10 +34,13 @@ public class UserEntityService {
 
 	// getting a specific record by using the method findById() of CrudRepository
 	public UserEntity getUserEntityById(int userid) {
-		if (filterActionService.isSelfUserOrHasAdminRole(userid))
-			return UserEntityRepository.findById(userid).get();
-		else
-			return null;
+//		restrict access
+//		if (filterActionService.isSelfUserOrHasAdminRole(userid))
+//			return UserEntityRepository.findById(userid).get();
+//		else
+//			return null;
+
+		return UserEntityRepository.findById(userid).get();
 	}
 
 	// saving a specific record by using the method save() of CrudRepository

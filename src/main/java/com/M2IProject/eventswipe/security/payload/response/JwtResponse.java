@@ -1,4 +1,4 @@
-package com.M2IProject.eventswipe.payload.response;
+package com.M2IProject.eventswipe.security.payload.response;
 
 import java.util.List;
 

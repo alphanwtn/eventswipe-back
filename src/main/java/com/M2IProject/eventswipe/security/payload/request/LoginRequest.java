@@ -1,4 +1,4 @@
-package com.M2IProject.eventswipe.payload.request;
+package com.M2IProject.eventswipe.security.payload.request;
 
 import javax.validation.constraints.NotBlank;
 
