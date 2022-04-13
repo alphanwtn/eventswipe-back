@@ -3,6 +3,7 @@ package com.M2IProject.eventswipe.controller;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -17,6 +18,7 @@ import com.M2IProject.eventswipe.service.UserEntityService;
 
 @RestController
 @RequestMapping(path = "/users")
+@CrossOrigin(origins = "*")
 public class UserEntityController {
 	@Autowired
 	UserEntityService userEntityService;

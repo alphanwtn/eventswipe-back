@@ -13,7 +13,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import com.M2IProject.eventswipe.model.EventEntity;
 
 @Controller
-@CrossOrigin(origins = "http://localhost:4200")
+@CrossOrigin(origins = "*")
 //@RequestMapping(path = "events")
 public class EventEntityController {
 

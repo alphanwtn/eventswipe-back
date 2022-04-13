@@ -1,4 +1,4 @@
-package com.M2IProject.eventswipe.controller;
+package com.M2IProject.eventswipe.repository;
 
 import java.util.Optional;
 

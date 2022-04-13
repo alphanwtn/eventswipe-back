@@ -21,6 +21,7 @@ import org.springframework.web.bind.annotation.RestController;
 import com.M2IProject.eventswipe.model.ERole;
 import com.M2IProject.eventswipe.model.RoleEntity;
 import com.M2IProject.eventswipe.model.UserEntity;
+import com.M2IProject.eventswipe.repository.RoleEntityRepository;
 import com.M2IProject.eventswipe.repository.UserEntityRepository;
 import com.M2IProject.eventswipe.security.jwt.JwtUtils;
 import com.M2IProject.eventswipe.security.payload.request.LoginRequest;
