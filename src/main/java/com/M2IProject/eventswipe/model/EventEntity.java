@@ -25,45 +25,45 @@ import lombok.NoArgsConstructor;
 @Entity
 @Table(name = "events")
 public class EventEntity {
-	@Id
-	private String id;
+    @Id
+    private String id;
 
-	@Column(length = 200)
-	private String name;
+    @Column(length = 200)
+    private String name;
 
-	@Column(columnDefinition = "TEXT")
-	private String description;
+    @Column(columnDefinition = "TEXT")
+    private String description;
 
-	@Column(length = 200)
-	private String url;
+    @Column(length = 200)
+    private String url;
 
-	@Temporal(TemporalType.TIMESTAMP) // ! GMT + 0
-	private Calendar start_date_event;
+    @Temporal(TemporalType.TIMESTAMP) // ! GMT + 0
+    private Calendar start_date_event;
 
-	@Temporal(TemporalType.TIMESTAMP) // ! GMT + 0
-	private Calendar start_date_sale;
+    @Temporal(TemporalType.TIMESTAMP) // ! GMT + 0
+    private Calendar start_date_sale;
 
-	@Temporal(TemporalType.TIMESTAMP) // ! GMT + 0
-	private Calendar end_date_sale;
+    @Temporal(TemporalType.TIMESTAMP) // ! GMT + 0
+    private Calendar end_date_sale;
 
-	@OneToOne
-	private SegmentEntity segment;
+    @OneToOne
+    private SegmentEntity segment;
 
-	@OneToOne
-	private GenreEntity genre;
+    @OneToOne
+    private GenreEntity genre;
 
-	@OneToOne
-	private SubGenreEntity subgenre;
+    @OneToOne
+    private SubGenreEntity subgenre;
 
-	@OneToOne(cascade = CascadeType.ALL)
-	private VenueEntity venue;
+    @OneToOne(cascade = CascadeType.ALL)
+    private VenueEntity venue;
 
-	@ManyToMany(cascade = CascadeType.ALL)
-	@JoinTable(name = "events_attractions", joinColumns = @JoinColumn(name = "events_id"), inverseJoinColumns = @JoinColumn(name = "attractions_id"))
-	private List<AttractionEntity> attractionsinevent;
+    @ManyToMany(cascade = CascadeType.ALL)
+    @JoinTable(name = "events_attractions", joinColumns = @JoinColumn(name = "events_id"), inverseJoinColumns = @JoinColumn(name = "attractions_id"))
+    private List<AttractionEntity> attractionsinevent;
 
-	@ManyToMany(cascade = CascadeType.ALL)
-	@JoinTable(name = "events_images", joinColumns = @JoinColumn(name = "events_id"), inverseJoinColumns = @JoinColumn(name = "images_id"))
-	private List<ImageEntity> imagesinevent;
+    @ManyToMany(cascade = CascadeType.ALL)
+    @JoinTable(name = "events_images", joinColumns = @JoinColumn(name = "events_id"), inverseJoinColumns = @JoinColumn(name = "images_id"))
+    private List<ImageEntity> imagesinevent;
 
 }

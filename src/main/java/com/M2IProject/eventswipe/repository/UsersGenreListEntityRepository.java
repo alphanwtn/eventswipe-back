@@ -14,6 +14,6 @@ public interface UsersGenreListEntityRepository extends CrudRepository<UsersGenr
 
     Optional<UsersGenreListEntity> findByUser(int id);
 
-    List<UsersGenreListEntity> findAllByUser(int userid);
+    List<UsersGenreListEntity> findAllByUserId(int userid);
 
 }

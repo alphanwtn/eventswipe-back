@@ -63,13 +63,12 @@ public class EventEntityService {
     public List<EventEntity> getAllEventsUnderRadius(int userid) {
 	// first step récupérer les genres selectionnés par le user dans sa
 	// usersGenreList et constituer ainsi la liste des genres recherchés
-	System.out.println(userid + "<<<<<<<<");
-	List<String> searchedGenresId = new ArrayList<String>();
-	List<UsersGenreListEntity> userGenresId = usersGenreListEntityRepository.findAllByUser(userid);
 
-	for (UsersGenreListEntity u : userGenresId) {
-	    userGenresId.forEach(x -> searchedGenresId.add(u.getGenre().getId()));
-	}
+	List<String> searchedGenresId = new ArrayList<String>();
+	List<UsersGenreListEntity> userGenresId = usersGenreListEntityRepository.findAllByUserId(userid);
+
+	userGenresId.forEach(x -> searchedGenresId.add(x.getGenre().getId()));
+
 	// second step constituer la liste des événements proposés, basée sur la liste
 	// des genres recherchés
 	List<EventEntity> eventsList = new ArrayList<>();
@@ -78,9 +77,10 @@ public class EventEntityService {
 	    Iterable<EventEntity> resultByGenre = eventEntityRepository.findAllByGenreId(g);
 	    resultByGenre.forEach(x -> eventsList.add(x));
 	}
-
+	System.out.println("***" + eventsList);
 	// third step réduire le nombre d'événements proposés en vérifiant qu'ils sont
 	// dans le radius recherché par le user
+
 	List<EventEntity> eventsUnderRadius = new ArrayList<>();
 	UserEntity user = userEntityRepository.findById(userid).get();
 	Integer userRadius = user.getSearchRadiusKm();
@@ -90,8 +90,12 @@ public class EventEntityService {
 	    double lon1 = Double.valueOf(user.getGps_longitude());
 	    double lat2 = Double.valueOf(e.getVenue().getGps_latitude());
 	    double lon2 = Double.valueOf(e.getVenue().getGps_longitude());
-	    if (DistanceCalculator.distance(lat1, lon1, lat2, lon2, "K") <= userRadius) {
+	    if (e.getVenue().getGps_latitude() == null || e.getVenue().getGps_longitude() == null) {
 		eventsUnderRadius.add(e);
+	    } else if (DistanceCalculator.distance(lat1, lon1, lat2, lon2, "K") <= userRadius) {
+		eventsUnderRadius.add(e);
+	    } else {
+
 	    }
 	    Collections.shuffle(eventsUnderRadius);
 
