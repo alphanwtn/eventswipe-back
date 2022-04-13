@@ -6,11 +6,19 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Column;
 import javax.persistence.Table;
+
+import org.springframework.security.core.GrantedAuthority;
+import org.springframework.security.core.authority.SimpleGrantedAuthority;
+import org.springframework.security.core.userdetails.UserDetails;
+
 import javax.persistence.JoinColumn;
 import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
 import javax.persistence.CascadeType;
 
+import java.util.ArrayList;
+import java.util.Collection;
+import java.util.List;
 import java.util.Set;
 
 import lombok.AllArgsConstructor;
@@ -25,7 +33,9 @@ import lombok.NoArgsConstructor;
 @Entity
 //defining class name as Table name
 @Table(name = "users")
-public class UserEntity {
+public class UserEntity implements UserDetails {
+
+	private static final long serialVersionUID = -1985551883116102444L;
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
@@ -60,4 +70,54 @@ public class UserEntity {
 	@ManyToMany(cascade = CascadeType.MERGE)
 	@JoinTable(name = "users_roles", joinColumns = @JoinColumn(name = "users_id"), inverseJoinColumns = @JoinColumn(name = "roles_id"))
 	private Set<RoleEntity> roles;
+
+	public UserEntity(String email, String password) {
+		this.email = email;
+		this.password = password;
+	}
+
+	public UserEntity(String email, String password, String first_name, String last_name, String city) {
+		this.email = email;
+		this.password = password;
+		this.first_name = first_name;
+		this.last_name = last_name;
+		this.city = city;
+	}
+
+	@Override
+	public Collection<? extends GrantedAuthority> getAuthorities() {
+		List<SimpleGrantedAuthority> authorities = new ArrayList<>();
+		roles.forEach(role -> authorities.add(new SimpleGrantedAuthority(role.getName().toString())));
+		return authorities;
+	}
+
+	@Override
+	public String getUsername() {
+		// TODO Auto-generated method stub
+		return email;
+	}
+
+	@Override
+	public boolean isAccountNonExpired() {
+		// TODO Auto-generated method stub
+		return true;
+	}
+
+	@Override
+	public boolean isAccountNonLocked() {
+		// TODO Auto-generated method stub
+		return true;
+	}
+
+	@Override
+	public boolean isCredentialsNonExpired() {
+		// TODO Auto-generated method stub
+		return true;
+	}
+
+	@Override
+	public boolean isEnabled() {
+		// TODO Auto-generated method stub
+		return true;
+	}
 }
