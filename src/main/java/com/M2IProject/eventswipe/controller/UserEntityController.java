@@ -14,7 +14,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.M2IProject.eventswipe.model.UserEntity;
-import com.M2IProject.eventswipe.security.FilterAction;
 import com.M2IProject.eventswipe.service.UserEntityService;
 
 @RestController
@@ -24,14 +23,14 @@ public class UserEntityController {
     @Autowired
     UserEntityService userEntityService;
 
-    @Autowired
-    FilterAction filterActionService;
+//	@Autowired
+//	FilterAction filterActionService;
 
     // creating a get mapping that retrieves all the users detail from the database
     @GetMapping
+    // @PreAuthorize("hasRole('ADMIN')")
     private List<UserEntity> getAllUserEntity() {
 	return userEntityService.getAllUserEntity();
-
     }
 
     // creating a get mapping that retrieves the detail of a specific user
