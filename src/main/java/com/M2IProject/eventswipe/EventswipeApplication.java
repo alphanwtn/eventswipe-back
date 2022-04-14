@@ -11,7 +11,6 @@ public class EventswipeApplication implements CommandLineRunner {
 
 	public static void main(String[] args) throws IOException, InterruptedException {
 		SpringApplication.run(EventswipeApplication.class, args);
-
 	}
 
 	@Override

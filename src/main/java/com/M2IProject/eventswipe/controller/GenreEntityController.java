@@ -14,7 +14,7 @@ import com.M2IProject.eventswipe.model.GenreEntity;
 import com.M2IProject.eventswipe.service.GenreEntityService;
 
 @Controller
-@CrossOrigin(origins = "http://localhost:4200")
+@CrossOrigin(origins = "*")
 //@RequestMapping(path = "/api")
 public class GenreEntityController {
 
