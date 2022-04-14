@@ -36,9 +36,9 @@ public class EventEntityController {
 	return eventEntityService.getAllEventsByGenreId(searchedGenreIds);
     }
 
-    @GetMapping(path = "/get-events-under-radius")
-    public @ResponseBody List<EventEntity> getAllEventsUnderRadius(@RequestParam(value = "userid") int userId) {
-	return eventEntityService.getAllEventsUnderRadius(userId);
+    @GetMapping("/get-user-events-pull/{userid}")
+    public @ResponseBody List<EventEntity> getUserEventsPull(@PathVariable("userid") int userid) {
+	return eventEntityService.getUserEventsPull(userid);
     }
 
 }

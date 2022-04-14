@@ -1,5 +1,6 @@
 package com.M2IProject.eventswipe.repository;
 
+import java.util.List;
 import java.util.Optional;
 
 import org.springframework.data.jpa.repository.Modifying;
@@ -30,5 +31,7 @@ public interface UsersEventListEntityRepository extends CrudRepository<UsersEven
     @Modifying(flushAutomatically = true)
     @Query(value = "UPDATE users_eventlist SET status = CASE WHEN status = \"ALERTED\" THEN \"LIKED\" WHEN status = \"LIKED\" THEN \"ALERTED\" else status END WHERE user_id = :userId AND event_id = :eventId", nativeQuery = true)
     public void switchLikedAndAlerted(int userId, String eventId);
+
+    List<UsersEventListEntity> findAllByUserId(int userid);
 
 }
