@@ -23,7 +23,6 @@ public class GenreEntityController {
 
 	@GetMapping(path = "/get-all-genres-by-segment-id")
 	public @ResponseBody List<GenreEntity> getAllGenresBySegmentId(@RequestParam(value = "id") String segmentId) {
-
 		return genreEntityService.getAllGenresBySegmentId(segmentId);
 	}
 
