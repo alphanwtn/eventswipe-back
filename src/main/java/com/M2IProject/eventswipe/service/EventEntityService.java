@@ -105,22 +105,24 @@ public class EventEntityService {
 
 	// fourth step supprimer les events du pull soumis à l'utilisateur s'ils sont
 	// déjà terminés (si la start_date_event est before today)
+	List<EventEntity> eventsSubmitToUser2 = new ArrayList<>();
 	for (EventEntity event : eventsSubmitToUser) {
 	    Calendar today = Calendar.getInstance();
-	    if (event.getStart_date_event().before(today)) {
-		eventsSubmitToUser.remove(event);
+	    if (event.getStart_date_event().after(today)) {
+		eventsSubmitToUser2.add(event);
 	    }
 	}
 
 	// fifth step omettre l'évenement si celui ci à déjà était présenté au user par
 	// le passé ( si déjà présent dans user eventlist sous n'importe quel statut)
+	List<EventEntity> eventsSubmitToUser3 = new ArrayList<>();
 	List<UsersEventListEntity> userEventListe = usersEventListEntityRepository.findAllByUserId(userid);
-	for (EventEntity e : eventsSubmitToUser) {
+	for (EventEntity e : eventsSubmitToUser2) {
 
 	    for (UsersEventListEntity x : userEventListe) {
-		if (e.getId() == x.getEvent().getId()) {
+		if (e.getId() != x.getEvent().getId()) {
 
-		    eventsSubmitToUser.remove(e);
+		    eventsSubmitToUser3.add(e);
 		    if (eventsSubmitToUser.size() == 0) {
 			return eventsSubmitToUser;
 		    }
