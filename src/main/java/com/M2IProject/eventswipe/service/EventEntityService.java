@@ -123,8 +123,8 @@ public class EventEntityService {
 		if (e.getId() != x.getEvent().getId()) {
 
 		    eventsSubmitToUser3.add(e);
-		    if (eventsSubmitToUser.size() == 0) {
-			return eventsSubmitToUser;
+		    if (eventsSubmitToUser3.size() == 0) {
+			return eventsSubmitToUser3;
 		    }
 		}
 	    }
@@ -132,7 +132,7 @@ public class EventEntityService {
 	Collections.shuffle(eventsSubmitToUser);
 
 	if (eventsSubmitToUser.size() > 30)
-	    return eventsSubmitToUser.subList(0, 30);
-	return eventsSubmitToUser;
+	    return eventsSubmitToUser3.subList(0, 30);
+	return eventsSubmitToUser3;
     }
 }
