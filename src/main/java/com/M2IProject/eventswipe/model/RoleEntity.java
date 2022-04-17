@@ -22,7 +22,6 @@ import lombok.NoArgsConstructor;
 public class RoleEntity {
 
 	@Id
-	@GeneratedValue(strategy = GenerationType.AUTO)
 	private int id;
 
 	@Enumerated(EnumType.STRING)

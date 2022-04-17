@@ -20,26 +20,24 @@ import com.M2IProject.eventswipe.model.EventEntity;
 
 public class EventEntityController {
 
-    @Autowired
-    private com.M2IProject.eventswipe.service.EventEntityService eventEntityService;
+	@Autowired
+	private com.M2IProject.eventswipe.service.EventEntityService eventEntityService;
 
-    @GetMapping(path = "/get-events-by-genre-name")
-    public @ResponseBody List<EventEntity> getAllEventsByName(
-	    @RequestParam(value = "genre") List<String> searchedGenreNames) {
+	@GetMapping(path = "/get-events-by-genre-name")
+	public @ResponseBody List<EventEntity> getAllEventsByName(
+			@RequestParam(value = "genre") List<String> searchedGenreNames) {
+		return eventEntityService.getAllEventsByGenreName(searchedGenreNames);
+	}
 
-	return eventEntityService.getAllEventsByGenreName(searchedGenreNames);
-    }
+	@GetMapping(path = "/get-events-by-genre-id")
+	public @ResponseBody List<EventEntity> getAllEventsByGenreId(
+			@RequestParam(value = "id") List<String> searchedGenreIds) {
+		return eventEntityService.getAllEventsByGenreId(searchedGenreIds);
+	}
 
-    @GetMapping(path = "/get-events-by-genre-id")
-    public @ResponseBody List<EventEntity> getAllEventsByGenreId(
-	    @RequestParam(value = "id") List<String> searchedGenreIds) {
-
-	return eventEntityService.getAllEventsByGenreId(searchedGenreIds);
-    }
-
-    @GetMapping("/get-user-events-pull/{userid}")
-    public @ResponseBody List<EventEntity> getUserEventsPull(@PathVariable("userid") int userid) {
-	return eventEntityService.getUserEventsPull(userid);
-    }
+	@GetMapping("/get-user-events-pull/{userid}")
+	public @ResponseBody List<EventEntity> getUserEventsPull(@PathVariable("userid") int userid) {
+		return eventEntityService.getUserEventsPull(userid);
+	}
 
 }
