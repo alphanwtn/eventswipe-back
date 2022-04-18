@@ -3,6 +3,7 @@ package com.M2IProject.eventswipe.controller;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.DeleteMapping;
@@ -27,13 +28,14 @@ public class UsersEventListEntityController {
 	// creating a get mapping that show all events for a specific user's
 	// userEventList
 	@GetMapping("/{userid}")
-	private @ResponseBody List<EventEntity> getAllEventList(@PathVariable("userid") int userid) {
+	@PreAuthorize("hasRole('ROLE_ADMIN') or principal.id == #userid")
+	public @ResponseBody List<EventEntity> getAllEventList(@PathVariable("userid") int userid) {
 		return usersEventListEntityService.getAllEventList(userid);
 	}
 
 	// creating a get mapping that show all events liked by an user
 	@GetMapping("/{userid}/{STATUS}")
-	private @ResponseBody List<EventEntity> getAllEventListByStatus(@PathVariable("userid") int userid,
+	public @ResponseBody List<EventEntity> getAllEventListByStatus(@PathVariable("userid") int userid,
 			@PathVariable("STATUS") String status) {
 		return usersEventListEntityService.getAllEventListByStatus(userid, status);
 	}
@@ -41,13 +43,13 @@ public class UsersEventListEntityController {
 	// creating a get mapping that show all user's events liked and alerted in one
 	// request
 	@GetMapping("/{userid}/allLikedAndAlerted")
-	private @ResponseBody List<EventEntity> getAllEventLikedAndAlerted(@PathVariable("userid") int userid) {
+	public @ResponseBody List<EventEntity> getAllEventLikedAndAlerted(@PathVariable("userid") int userid) {
 		return usersEventListEntityService.getAllEventLikedAndAlerted(userid);
 	}
 
 	// creating a post mapping that add an event to a specific user's userEventList
 	@PostMapping("/{userid}/{eventid}/{STATUS}")
-	private @ResponseBody void addUserEvent(@PathVariable("userid") int userId, @PathVariable("eventid") String eventId,
+	public @ResponseBody void addUserEvent(@PathVariable("userid") int userId, @PathVariable("eventid") String eventId,
 			@PathVariable("STATUS") Status status) {
 		usersEventListEntityService.addevent(userId, eventId, status);
 	}
@@ -55,7 +57,7 @@ public class UsersEventListEntityController {
 	// creating a delete mapping that deletes a specified event in an user's
 	// userEventList
 	@DeleteMapping("/{userid}/{eventid}")
-	private @ResponseBody void deleteUsersEventListByEventId(@PathVariable("userid") int userId,
+	public @ResponseBody void deleteUsersEventListByEventId(@PathVariable("userid") int userId,
 			@PathVariable("eventid") String eventId) {
 		usersEventListEntityService.deleteUsersEventListByEventId(userId, eventId);
 	}
@@ -63,7 +65,7 @@ public class UsersEventListEntityController {
 	// creating a put mapping that modify the status of an event in a users's
 	// eventlist here liked to alerted
 	@PutMapping("/{userid}/{eventid}/disliked")
-	private @ResponseBody void changeStatusToDisliked(@PathVariable("userid") int userid,
+	public @ResponseBody void changeStatusToDisliked(@PathVariable("userid") int userid,
 			@PathVariable("eventid") String eventid) {
 		usersEventListEntityService.changeStatusToDisliked(userid, eventid);
 	}
@@ -71,7 +73,7 @@ public class UsersEventListEntityController {
 	// modifying the status of an event in a users's eventlist here liked to alerted
 	// and vice versa
 	@PutMapping("/{userid}/{eventid}/switch")
-	private @ResponseBody void switchLikedAndAlerted(@PathVariable("userid") int userid,
+	public @ResponseBody void switchLikedAndAlerted(@PathVariable("userid") int userid,
 			@PathVariable("eventid") String eventid) {
 		usersEventListEntityService.switchLikedAndAlerted(userid, eventid);
 	}

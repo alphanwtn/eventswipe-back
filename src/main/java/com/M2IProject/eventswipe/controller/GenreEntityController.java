@@ -25,5 +25,4 @@ public class GenreEntityController {
 	public @ResponseBody List<GenreEntity> getAllGenresBySegmentId(@RequestParam(value = "id") String segmentId) {
 		return genreEntityService.getAllGenresBySegmentId(segmentId);
 	}
-
 }
