@@ -93,13 +93,14 @@ public class EventEntityService {
 	for (EventEntity e : eventsList) {
 	    double lat1 = Double.valueOf(user.getGps_latitude());
 	    double lon1 = Double.valueOf(user.getGps_longitude());
+
+	    if (e.getVenue().getGps_latitude() == null || e.getVenue().getGps_longitude() == null) {
+		continue;
+	    }
 	    double lat2 = Double.valueOf(e.getVenue().getGps_latitude());
 	    double lon2 = Double.valueOf(e.getVenue().getGps_longitude());
-	    if (e.getVenue().getGps_latitude() == null || e.getVenue().getGps_longitude() == null) {
-		eventsList.remove(e);
-	    } else if (DistanceCalculator.distance(lat1, lon1, lat2, lon2, "K") <= userRadius) {
+	    if (DistanceCalculator.distance(lat1, lon1, lat2, lon2, "K") <= userRadius) {
 		eventsSubmitToUser.add(e);
-	    } else {
 	    }
 	}
 
@@ -120,19 +121,23 @@ public class EventEntityService {
 	for (EventEntity e : eventsSubmitToUser2) {
 
 	    for (UsersEventListEntity x : userEventListe) {
-		if (e.getId() != x.getEvent().getId()) {
-
+		if (e.getId() == x.getEvent().getId()) {
+		    continue;
+		} else {
 		    eventsSubmitToUser3.add(e);
-		    if (eventsSubmitToUser3.size() == 0) {
-			return eventsSubmitToUser3;
-		    }
+		}
+		if (eventsSubmitToUser3.size() == 0) {
+		    return eventsSubmitToUser3;
 		}
 	    }
 	}
-	Collections.shuffle(eventsSubmitToUser);
+	System.out.println(eventsSubmitToUser2.size() + "<<<<<<<");
+	System.out.println(userEventListe.size() + "<<<<<<<<");
+	Collections.shuffle(eventsSubmitToUser3);
 
-	if (eventsSubmitToUser.size() > 30)
+	if (eventsSubmitToUser3.size() > 30)
 	    return eventsSubmitToUser3.subList(0, 30);
+
 	return eventsSubmitToUser3;
     }
 }
