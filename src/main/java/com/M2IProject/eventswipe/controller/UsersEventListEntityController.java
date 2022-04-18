@@ -35,6 +35,7 @@ public class UsersEventListEntityController {
 
 	// creating a get mapping that show all events liked by an user
 	@GetMapping("/{userid}/{STATUS}")
+	@PreAuthorize("hasRole('ROLE_ADMIN') or principal.id == #userid")
 	public @ResponseBody List<EventEntity> getAllEventListByStatus(@PathVariable("userid") int userid,
 			@PathVariable("STATUS") String status) {
 		return usersEventListEntityService.getAllEventListByStatus(userid, status);
@@ -43,28 +44,32 @@ public class UsersEventListEntityController {
 	// creating a get mapping that show all user's events liked and alerted in one
 	// request
 	@GetMapping("/{userid}/allLikedAndAlerted")
+	@PreAuthorize("hasRole('ROLE_ADMIN') or principal.id == #userid")
 	public @ResponseBody List<EventEntity> getAllEventLikedAndAlerted(@PathVariable("userid") int userid) {
 		return usersEventListEntityService.getAllEventLikedAndAlerted(userid);
 	}
 
 	// creating a post mapping that add an event to a specific user's userEventList
 	@PostMapping("/{userid}/{eventid}/{STATUS}")
-	public @ResponseBody void addUserEvent(@PathVariable("userid") int userId, @PathVariable("eventid") String eventId,
+	@PreAuthorize("hasRole('ROLE_ADMIN') or principal.id == #userid")
+	public @ResponseBody void addUserEvent(@PathVariable("userid") int userid, @PathVariable("eventid") String eventId,
 			@PathVariable("STATUS") Status status) {
-		usersEventListEntityService.addevent(userId, eventId, status);
+		usersEventListEntityService.addevent(userid, eventId, status);
 	}
 
 	// creating a delete mapping that deletes a specified event in an user's
 	// userEventList
 	@DeleteMapping("/{userid}/{eventid}")
-	public @ResponseBody void deleteUsersEventListByEventId(@PathVariable("userid") int userId,
+	@PreAuthorize("hasRole('ROLE_ADMIN')")
+	public @ResponseBody void deleteUsersEventListByEventId(@PathVariable("userid") int userid,
 			@PathVariable("eventid") String eventId) {
-		usersEventListEntityService.deleteUsersEventListByEventId(userId, eventId);
+		usersEventListEntityService.deleteUsersEventListByEventId(userid, eventId);
 	}
 
 	// creating a put mapping that modify the status of an event in a users's
 	// eventlist here liked to alerted
 	@PutMapping("/{userid}/{eventid}/disliked")
+	@PreAuthorize("hasRole('ROLE_ADMIN') or principal.id == #userid")
 	public @ResponseBody void changeStatusToDisliked(@PathVariable("userid") int userid,
 			@PathVariable("eventid") String eventid) {
 		usersEventListEntityService.changeStatusToDisliked(userid, eventid);
@@ -73,6 +78,7 @@ public class UsersEventListEntityController {
 	// modifying the status of an event in a users's eventlist here liked to alerted
 	// and vice versa
 	@PutMapping("/{userid}/{eventid}/switch")
+	@PreAuthorize("hasRole('ROLE_ADMIN') or principal.id == #userid")
 	public @ResponseBody void switchLikedAndAlerted(@PathVariable("userid") int userid,
 			@PathVariable("eventid") String eventid) {
 		usersEventListEntityService.switchLikedAndAlerted(userid, eventid);
