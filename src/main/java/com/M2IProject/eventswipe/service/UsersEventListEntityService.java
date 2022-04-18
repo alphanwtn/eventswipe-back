@@ -39,16 +39,12 @@ public class UsersEventListEntityService {
 		List<UserEventStatusDTO> dtoList = new ArrayList<>();
 
 		getAllEventListByStatus(userid, "LIKED").forEach(x -> {
-			UserEventStatusDTO dto = new UserEventStatusDTO();
-			dto.setEvent(x);
-			dto.setStatus(Status.LIKED);
+			UserEventStatusDTO dto = new UserEventStatusDTO(x, Status.LIKED);
 			dtoList.add(dto);
 		});
 
 		getAllEventListByStatus(userid, "ALERTED").forEach(x -> {
-			UserEventStatusDTO dto = new UserEventStatusDTO();
-			dto.setEvent(x);
-			dto.setStatus(Status.ALERTED);
+			UserEventStatusDTO dto = new UserEventStatusDTO(x, Status.ALERTED);
 			dtoList.add(dto);
 		});
 
