@@ -1,8 +1,11 @@
 package com.M2IProject.eventswipe.service;
 
+import java.util.ArrayList;
 import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+
+import com.M2IProject.eventswipe.dto.UserEventStatusDTO;
 import com.M2IProject.eventswipe.model.EventEntity;
 import com.M2IProject.eventswipe.model.Status;
 import com.M2IProject.eventswipe.model.UserEntity;
@@ -32,8 +35,24 @@ public class UsersEventListEntityService {
 	}
 
 	// getting all user's events liked and alerted in one request
-	public List<EventEntity> getAllEventLikedAndAlerted(int userid) {
-		return eventEntityRepository.getAllEventLikedAndAlerted(userid);
+	public List<UserEventStatusDTO> getAllEventLikedAndAlerted(int userid) {
+		List<UserEventStatusDTO> dtoList = new ArrayList<>();
+
+		getAllEventListByStatus(userid, "LIKED").forEach(x -> {
+			UserEventStatusDTO dto = new UserEventStatusDTO();
+			dto.setEvent(x);
+			dto.setStatus(Status.LIKED);
+			dtoList.add(dto);
+		});
+
+		getAllEventListByStatus(userid, "ALERTED").forEach(x -> {
+			UserEventStatusDTO dto = new UserEventStatusDTO();
+			dto.setEvent(x);
+			dto.setStatus(Status.ALERTED);
+			dtoList.add(dto);
+		});
+
+		return dtoList;
 	}
 
 	// saving a specific record by using the method save() of CrudRepository

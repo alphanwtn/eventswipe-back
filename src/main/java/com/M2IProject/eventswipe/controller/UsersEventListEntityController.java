@@ -14,6 +14,7 @@ import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import com.M2IProject.eventswipe.dto.UserEventStatusDTO;
 import com.M2IProject.eventswipe.model.EventEntity;
 import com.M2IProject.eventswipe.model.Status;
 import com.M2IProject.eventswipe.service.UsersEventListEntityService;
@@ -45,7 +46,7 @@ public class UsersEventListEntityController {
 	// request
 	@GetMapping("/{userid}/allLikedAndAlerted")
 	@PreAuthorize("hasRole('ROLE_ADMIN') or principal.id == #userid")
-	public @ResponseBody List<EventEntity> getAllEventLikedAndAlerted(@PathVariable("userid") int userid) {
+	public @ResponseBody List<UserEventStatusDTO> getAllEventLikedAndAlerted(@PathVariable("userid") int userid) {
 		return usersEventListEntityService.getAllEventLikedAndAlerted(userid);
 	}
 
