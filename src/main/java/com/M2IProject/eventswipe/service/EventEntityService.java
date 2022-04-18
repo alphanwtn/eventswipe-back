@@ -93,44 +93,62 @@ public class EventEntityService {
 		for (EventEntity e : eventsList) {
 			double lat1 = Double.valueOf(user.getGps_latitude());
 			double lon1 = Double.valueOf(user.getGps_longitude());
+
+			if (e.getVenue().getGps_latitude() == null || e.getVenue().getGps_longitude() == null) {
+				continue;
+			}
 			double lat2 = Double.valueOf(e.getVenue().getGps_latitude());
 			double lon2 = Double.valueOf(e.getVenue().getGps_longitude());
-			if (e.getVenue().getGps_latitude() == null || e.getVenue().getGps_longitude() == null) {
-				eventsList.remove(e);
-			} else if (DistanceCalculator.distance(lat1, lon1, lat2, lon2, "K") <= userRadius) {
+			if (DistanceCalculator.distance(lat1, lon1, lat2, lon2, "K") <= userRadius) {
 				eventsSubmitToUser.add(e);
-			} else {
+
 			}
 		}
 
 		// fourth step supprimer les events du pull soumis à l'utilisateur s'ils sont
 		// déjà terminés (si la start_date_event est before today)
+
+		List<EventEntity> eventsSubmitToUser2 = new ArrayList<>();
 		for (EventEntity event : eventsSubmitToUser) {
 			Calendar today = Calendar.getInstance();
-			if (event.getStart_date_event().before(today)) {
-				eventsSubmitToUser.remove(event);
+			if (event.getStart_date_event().after(today)) {
+				eventsSubmitToUser2.add(event);
+
 			}
 		}
 
 		// fifth step omettre l'évenement si celui ci à déjà était présenté au user par
 		// le passé ( si déjà présent dans user eventlist sous n'importe quel statut)
+
+		List<EventEntity> eventsSubmitToUser3 = new ArrayList<>();
 		List<UsersEventListEntity> userEventListe = usersEventListEntityRepository.findAllByUserId(userid);
-		for (EventEntity e : eventsSubmitToUser) {
-
-			for (UsersEventListEntity x : userEventListe) {
-				if (e.getId() == x.getEvent().getId()) {
-
-					eventsSubmitToUser.remove(e);
-					if (eventsSubmitToUser.size() == 0) {
-						return eventsSubmitToUser;
+		if (userEventListe.size() != 0) {
+			for (EventEntity e : eventsSubmitToUser2) {
+				for (UsersEventListEntity x : userEventListe) {
+					if (e.getId() == x.getEvent().getId()) {
+						continue;
+					} else {
+						eventsSubmitToUser3.add(e);
+					}
+					if (eventsSubmitToUser3.size() == 0) {
+						return eventsSubmitToUser3;
 					}
 				}
 			}
-		}
-		Collections.shuffle(eventsSubmitToUser);
 
-		if (eventsSubmitToUser.size() > 30)
-			return eventsSubmitToUser.subList(0, 30);
-		return eventsSubmitToUser;
+			Collections.shuffle(eventsSubmitToUser3);
+
+			if (eventsSubmitToUser3.size() > 30) {
+				return eventsSubmitToUser3.subList(0, 30);
+			}
+			return eventsSubmitToUser3;
+		} else {
+			Collections.shuffle(eventsSubmitToUser2);
+			if (eventsSubmitToUser2.size() > 30) {
+				return eventsSubmitToUser2.subList(0, 30);
+			}
+			return eventsSubmitToUser2;
+		}
+
 	}
 }
