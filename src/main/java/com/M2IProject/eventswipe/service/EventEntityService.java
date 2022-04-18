@@ -101,7 +101,6 @@ public class EventEntityService {
 			double lon2 = Double.valueOf(e.getVenue().getGps_longitude());
 			if (DistanceCalculator.distance(lat1, lon1, lat2, lon2, "K") <= userRadius) {
 				eventsSubmitToUser.add(e);
-
 			}
 		}
 
@@ -119,7 +118,6 @@ public class EventEntityService {
 
 		// fifth step omettre l'évenement si celui ci à déjà était présenté au user par
 		// le passé ( si déjà présent dans user eventlist sous n'importe quel statut)
-
 		List<EventEntity> eventsSubmitToUser3 = new ArrayList<>();
 		List<UsersEventListEntity> userEventListe = usersEventListEntityRepository.findAllByUserId(userid);
 		if (userEventListe.size() != 0) {
@@ -135,7 +133,6 @@ public class EventEntityService {
 					}
 				}
 			}
-
 			Collections.shuffle(eventsSubmitToUser3);
 
 			if (eventsSubmitToUser3.size() > 30) {
@@ -148,7 +145,7 @@ public class EventEntityService {
 				return eventsSubmitToUser2.subList(0, 30);
 			}
 			return eventsSubmitToUser2;
-		}
 
+		}
 	}
 }
