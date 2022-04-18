@@ -16,65 +16,63 @@ import com.M2IProject.eventswipe.repository.UserEntityRepository;
 
 @Service
 public class UserEntityService {
-    @Autowired
-    UserEntityRepository UserEntityRepository;
+	@Autowired
+	UserEntityRepository UserEntityRepository;
 
 //	@Autowired
 //	FilterAction filterActionService;
 
-    @Autowired
-    PasswordEncoder passwordEncoder;
+	@Autowired
+	PasswordEncoder passwordEncoder;
 
-    // getting all users record by using the method findaAll() of CrudRepository
-    public List<UserEntity> getAllUserEntity() {
-	List<UserEntity> users = new ArrayList<UserEntity>();
-	UserEntityRepository.findAll().forEach(user -> users.add(user));
-	return users;
-    }
+	// getting all users record by using the method findaAll() of CrudRepository
+	public List<UserEntity> getAllUserEntity() {
+		List<UserEntity> users = new ArrayList<UserEntity>();
+		UserEntityRepository.findAll().forEach(user -> users.add(user));
+		return users;
+	}
 
-    // getting a specific record by using the method findById() of CrudRepository
-    public UserEntity getUserEntityById(int userid) {
+	// getting a specific record by using the method findById() of CrudRepository
+	public UserEntity getUserEntityById(int userid) {
+		return UserEntityRepository.findById(userid).get();
+	}
 
-	return UserEntityRepository.findById(userid).get();
-    }
+	// saving a specific record by using the method save() of CrudRepository
+	public void save(UserEntity user) {
+		RoleEntity userrole = new RoleEntity(2, ERole.ROLE_USER); // role user by default
+		Set<RoleEntity> roles = new HashSet<>();
+		roles.add(userrole);
 
-    // saving a specific record by using the method save() of CrudRepository
-    public void save(UserEntity user) {
-	RoleEntity userrole = new RoleEntity(2, ERole.ROLE_USER); // role user by default
-	Set<RoleEntity> roles = new HashSet<>();
-	roles.add(userrole);
+		String pwd = user.getPassword();
+		user.setPassword(passwordEncoder.encode(pwd));
+		user.setRoles(roles);
+		UserEntityRepository.save(user);
 
-	String pwd = user.getPassword();
-	user.setPassword(passwordEncoder.encode(pwd));
-	user.setRoles(roles);
-	UserEntityRepository.save(user);
+	}
 
-    }
+	// deleting a specific record by using the method deleteById() of CrudRepository
+	public void delete(int id) {
+		UserEntityRepository.deleteById(id);
+	}
 
-    // deleting a specific record by using the method deleteById() of CrudRepository
-    public void delete(int id) {
-	UserEntityRepository.deleteById(id);
+	// updating a record
+	public void update(UserEntity user) {
+		UserEntityRepository.save(user);
+	}
 
-    }
+	public UserEntity updateRadius(int userid, int radius) {
+		UserEntity user = UserEntityRepository.findById(userid).get();
+		user.setSearchRadiusKm(radius);
+		UserEntityRepository.save(user);
+		return user;
+	}
 
-    // updating a record
-    public void update(UserEntity user) {
-	UserEntityRepository.save(user);
-    }
-
-    public UserEntity updateRadius(int userid, int radius) {
-	UserEntity user = UserEntityRepository.findById(userid).get();
-	user.setSearchRadiusKm(radius);
-	UserEntityRepository.save(user);
-	return user;
-    }
-
-    public UserEntity updateGPSCoordinates(int userid, String longitude, String latitude) {
-	UserEntity user = UserEntityRepository.findById(userid).get();
-	user.setGps_latitude(latitude);
-	user.setGps_longitude(longitude);
-	UserEntityRepository.save(user);
-	return user;
-    }
+	public UserEntity updateGPSCoordinates(int userid, String longitude, String latitude) {
+		UserEntity user = UserEntityRepository.findById(userid).get();
+		user.setGps_latitude(latitude);
+		user.setGps_longitude(longitude);
+		UserEntityRepository.save(user);
+		return user;
+	}
 
 }

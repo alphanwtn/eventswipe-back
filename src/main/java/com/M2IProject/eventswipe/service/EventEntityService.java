@@ -20,133 +20,134 @@ import com.M2IProject.eventswipe.utils.DistanceCalculator;
 @Service
 public class EventEntityService {
 
-	@Autowired
-	private EventEntityRepository eventEntityRepository;
-	@Autowired
-	private UserEntityRepository userEntityRepository;
-	@Autowired
-	private UsersGenreListEntityRepository usersGenreListEntityRepository;
-	@Autowired
-	private UsersEventListEntityRepository usersEventListEntityRepository;
+    @Autowired
+    private EventEntityRepository eventEntityRepository;
+    @Autowired
+    private UserEntityRepository userEntityRepository;
+    @Autowired
+    private UsersGenreListEntityRepository usersGenreListEntityRepository;
+    @Autowired
+    private UsersEventListEntityRepository usersEventListEntityRepository;
 
-	public List<EventEntity> getAllEventsByGenreName(List<String> searchedGenres) {
+    public List<EventEntity> getAllEventsByGenreName(List<String> searchedGenres) {
 
-		List<EventEntity> eventsList = new ArrayList<>();
+	List<EventEntity> eventsList = new ArrayList<>();
 
-		for (String g : searchedGenres) {
-			Iterable<EventEntity> resultByGenre = eventEntityRepository.findByGenreName(g);
-			resultByGenre.forEach(x -> eventsList.add(x));
-		}
-
-		Collections.shuffle(eventsList);
-
-		if (eventsList.size() > 30)
-			return eventsList.subList(0, 30);
-		// limitation du nombre d'event à 30 pour rapidité de test
-
-		return eventsList;
+	for (String g : searchedGenres) {
+	    Iterable<EventEntity> resultByGenre = eventEntityRepository.findByGenreName(g);
+	    resultByGenre.forEach(x -> eventsList.add(x));
 	}
 
-	public List<EventEntity> getAllEventsByGenreId(List<String> searchedGenresId) {
+	Collections.shuffle(eventsList);
 
-		List<EventEntity> eventsList = new ArrayList<>();
+	if (eventsList.size() > 30)
+	    return eventsList.subList(0, 30);
+	// limitation du nombre d'event à 30 pour rapidité de test
 
-		for (String g : searchedGenresId) {
-			Iterable<EventEntity> resultByGenre = eventEntityRepository.findAllByGenreId(g);
-			resultByGenre.forEach(x -> eventsList.add(x));
-		}
+	return eventsList;
+    }
 
-		Collections.shuffle(eventsList);
+    public List<EventEntity> getAllEventsByGenreId(List<String> searchedGenresId) {
 
-		if (eventsList.size() > 30)
-			return eventsList.subList(0, 30);
-		// limitation du nombre d'event à 30 pour rapidité de test
+	List<EventEntity> eventsList = new ArrayList<>();
 
-		return eventsList;
+	for (String g : searchedGenresId) {
+	    Iterable<EventEntity> resultByGenre = eventEntityRepository.findAllByGenreId(g);
+	    resultByGenre.forEach(x -> eventsList.add(x));
 	}
 
-	public List<EventEntity> getUserEventsPull(int userid) {
-		// first step récupérer les genres selectionnés par le user dans sa
-		// usersGenreList et constituer ainsi la liste des genres recherchés
+	Collections.shuffle(eventsList);
 
-		List<String> searchedGenresId = new ArrayList<String>();
-		List<UsersGenreListEntity> userGenresId = usersGenreListEntityRepository.findAllByUserId(userid);
+	if (eventsList.size() > 30)
+	    return eventsList.subList(0, 30);
+	// limitation du nombre d'event à 30 pour rapidité de test
 
-		userGenresId.forEach(x -> searchedGenresId.add(x.getGenre().getId()));
+	return eventsList;
+    }
 
-		// second step constituer la liste des événements qui sera triée, basée sur la
-		// liste des genres recherchés
+    public List<EventEntity> getUserEventsPull(int userid) {
+	// first step récupérer les genres selectionnés par le user dans sa
+	// usersGenreList et constituer ainsi la liste des genres recherchés
 
-		List<EventEntity> eventsList = new ArrayList<>();
+	List<String> searchedGenresId = new ArrayList<String>();
+	List<UsersGenreListEntity> userGenresId = usersGenreListEntityRepository.findAllByUserId(userid);
 
-		for (String g : searchedGenresId) {
-			Iterable<EventEntity> resultByGenre = eventEntityRepository.findAllByGenreId(g);
-			resultByGenre.forEach(x -> eventsList.add(x));
-		}
-		// third step réduire le nombre d'événements proposés en vérifiant qu'ils sont
-		// dans le radius recherché par le user
+	userGenresId.forEach(x -> searchedGenresId.add(x.getGenre().getId()));
 
-		List<EventEntity> eventsSubmitToUser = new ArrayList<>();
-		UserEntity user = userEntityRepository.findById(userid).get();
-		Integer userRadius = user.getSearchRadiusKm();
+	// second step constituer la liste des événements qui sera triée, basée sur la
+	// liste des genres recherchés
 
-		for (EventEntity e : eventsList) {
-			double lat1 = Double.valueOf(user.getGps_latitude());
-			double lon1 = Double.valueOf(user.getGps_longitude());
+	List<EventEntity> eventsList = new ArrayList<>();
 
-			if (e.getVenue().getGps_latitude() == null || e.getVenue().getGps_longitude() == null) {
-				continue;
-			}
-			double lat2 = Double.valueOf(e.getVenue().getGps_latitude());
-			double lon2 = Double.valueOf(e.getVenue().getGps_longitude());
-			if (DistanceCalculator.distance(lat1, lon1, lat2, lon2, "K") <= userRadius) {
-				eventsSubmitToUser.add(e);
-			}
-		}
+	for (String g : searchedGenresId) {
+	    Iterable<EventEntity> resultByGenre = eventEntityRepository.findAllByGenreId(g);
+	    resultByGenre.forEach(x -> eventsList.add(x));
+	}
+	// third step réduire le nombre d'événements proposés en vérifiant qu'ils sont
+	// dans le radius recherché par le user
 
-		// fourth step supprimer les events du pull soumis à l'utilisateur s'ils sont
-		// déjà terminés (si la start_date_event est before today)
-		List<EventEntity> eventsSubmitToUser2 = new ArrayList<>();
-		for (EventEntity event : eventsSubmitToUser) {
-			Calendar today = Calendar.getInstance();
-			if (event.getStart_date_event().after(today)) {
-				eventsSubmitToUser2.add(event);
-			}
-		}
+	List<EventEntity> eventsSubmitToUser = new ArrayList<>();
+	UserEntity user = userEntityRepository.findById(userid).get();
+	Integer userRadius = user.getSearchRadiusKm();
 
-		// fifth step omettre l'évenement si celui ci à déjà était présenté au user par
-		// le passé ( si déjà présent dans user eventlist sous n'importe quel statut)
-		List<EventEntity> eventsSubmitToUser3 = new ArrayList<>();
-		List<UsersEventListEntity> userEventListe = usersEventListEntityRepository.findAllByUserId(userid);
-		if (userEventListe.size() != 0) {
-			for (EventEntity e : eventsSubmitToUser2) {
-				for (UsersEventListEntity x : userEventListe) {
-					if (e.getId() == x.getEvent().getId()) {
-						continue;
-					} else {
-						eventsSubmitToUser3.add(e);
-					}
-					if (eventsSubmitToUser3.size() == 0) {
-						return eventsSubmitToUser3;
-					}
-				}
-			}
-			System.out.println(eventsSubmitToUser2.size() + "<<<<<<<");
-			System.out.println(eventsSubmitToUser3.size() + "<<<<<<<");
-			System.out.println(userEventListe.size() + "<<<<<<<<");
-			Collections.shuffle(eventsSubmitToUser3);
+	for (EventEntity e : eventsList) {
+	    double lat1 = Double.valueOf(user.getGps_latitude());
+	    double lon1 = Double.valueOf(user.getGps_longitude());
 
-			if (eventsSubmitToUser3.size() > 30) {
-				return eventsSubmitToUser3.subList(0, 30);
-			}
+	    if (e.getVenue().getGps_latitude() == null || e.getVenue().getGps_longitude() == null) {
+		continue;
+	    }
+	    double lat2 = Double.valueOf(e.getVenue().getGps_latitude());
+	    double lon2 = Double.valueOf(e.getVenue().getGps_longitude());
+	    if (DistanceCalculator.distance(lat1, lon1, lat2, lon2, "K") <= userRadius) {
+		eventsSubmitToUser.add(e);
+	    }
+	}
+
+	// fourth step supprimer les events du pull soumis à l'utilisateur s'ils sont
+	// déjà terminés (si la start_date_event est before today)
+
+	List<EventEntity> eventsSubmitToUser2 = new ArrayList<>();
+	for (EventEntity event : eventsSubmitToUser) {
+	    Calendar today = Calendar.getInstance();
+	    if (event.getStart_date_event().after(today)) {
+		eventsSubmitToUser2.add(event);
+
+	    }
+	}
+
+	// fifth step omettre l'évenement si celui ci à déjà était présenté au user par
+	// le passé ( si déjà présent dans user eventlist sous n'importe quel statut)
+	List<EventEntity> eventsSubmitToUser3 = new ArrayList<>();
+	List<UsersEventListEntity> userEventListe = usersEventListEntityRepository.findAllByUserId(userid);
+	if (userEventListe.size() != 0) {
+	    for (EventEntity e : eventsSubmitToUser2) {
+		for (UsersEventListEntity x : userEventListe) {
+		    if (e.getId() == x.getEvent().getId()) {
+			continue;
+		    } else {
+			eventsSubmitToUser3.add(e);
+		    }
+		    if (eventsSubmitToUser3.size() == 0) {
 			return eventsSubmitToUser3;
-		} else {
-			Collections.shuffle(eventsSubmitToUser2);
-			if (eventsSubmitToUser2.size() > 30) {
-				return eventsSubmitToUser2.subList(0, 30);
-			}
-			return eventsSubmitToUser2;
+		    }
 		}
+	    }
+	    System.out.println(eventsSubmitToUser2.size() + "<<<<<<<");
+	    System.out.println(eventsSubmitToUser3.size() + "<<<<<<<");
+	    System.out.println(userEventListe.size() + "<<<<<<<<");
+	    Collections.shuffle(eventsSubmitToUser3);
 
+	    if (eventsSubmitToUser3.size() > 30) {
+		return eventsSubmitToUser3.subList(0, 30);
+	    }
+	    return eventsSubmitToUser3;
+	} else {
+	    Collections.shuffle(eventsSubmitToUser2);
+	    if (eventsSubmitToUser2.size() > 30) {
+		return eventsSubmitToUser2.subList(0, 30);
+	    }
+	    return eventsSubmitToUser2;
 	}
+    }
 }

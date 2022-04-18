@@ -36,6 +36,7 @@ D:\Engineering\__M2i JAVA FULLSTACK\000_Ateam\eventswipe-back\src\main\java\com\
 D:\Engineering\__M2i JAVA FULLSTACK\000_Ateam\eventswipe-back\src\main\java\com\M2IProject\eventswipe\service\UsersGenreListEntityService.java
 D:\Engineering\__M2i JAVA FULLSTACK\000_Ateam\eventswipe-back\src\main\java\com\M2IProject\eventswipe\repository\ImageEntityRepository.java
 D:\Engineering\__M2i JAVA FULLSTACK\000_Ateam\eventswipe-back\src\main\java\com\M2IProject\eventswipe\service\GenreEntityService.java
+D:\Engineering\__M2i JAVA FULLSTACK\000_Ateam\eventswipe-back\src\main\java\com\M2IProject\eventswipe\service\LaunchService.java
 D:\Engineering\__M2i JAVA FULLSTACK\000_Ateam\eventswipe-back\src\main\java\com\M2IProject\eventswipe\model\UserEntity.java
 D:\Engineering\__M2i JAVA FULLSTACK\000_Ateam\eventswipe-back\src\main\java\com\M2IProject\eventswipe\security\jwt\JwtUtils.java
 D:\Engineering\__M2i JAVA FULLSTACK\000_Ateam\eventswipe-back\src\main\java\com\M2IProject\eventswipe\repository\SubGenreEntityRepository.java
@@ -44,7 +45,6 @@ D:\Engineering\__M2i JAVA FULLSTACK\000_Ateam\eventswipe-back\src\main\java\com\
 D:\Engineering\__M2i JAVA FULLSTACK\000_Ateam\eventswipe-back\src\main\java\com\M2IProject\eventswipe\security\payload\response\JwtResponse.java
 D:\Engineering\__M2i JAVA FULLSTACK\000_Ateam\eventswipe-back\src\main\java\com\M2IProject\eventswipe\controller\UserEntityController.java
 D:\Engineering\__M2i JAVA FULLSTACK\000_Ateam\eventswipe-back\src\main\java\com\M2IProject\eventswipe\security\jwt\AuthEntryPointJwt.java
-D:\Engineering\__M2i JAVA FULLSTACK\000_Ateam\eventswipe-back\src\main\java\com\M2IProject\eventswipe\service\ScrapersLaunchService.java
 D:\Engineering\__M2i JAVA FULLSTACK\000_Ateam\eventswipe-back\src\main\java\com\M2IProject\eventswipe\repository\EventEntityRepository.java
 D:\Engineering\__M2i JAVA FULLSTACK\000_Ateam\eventswipe-back\src\main\java\com\M2IProject\eventswipe\model\RoleEntity.java
 D:\Engineering\__M2i JAVA FULLSTACK\000_Ateam\eventswipe-back\src\main\java\com\M2IProject\eventswipe\model\EventEntity.java

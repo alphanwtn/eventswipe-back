@@ -30,6 +30,6 @@ public class SignupRequest {
 
 	private String city;
 
-	private Set<String> role;
+	private Set<String> roles;
 
 }

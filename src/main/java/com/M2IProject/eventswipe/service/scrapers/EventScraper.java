@@ -171,12 +171,12 @@ public class EventScraper {
 
 			if (eventInArray.at("/dates/start").get("dateTime") != null) {
 				stringDate = eventInArray.at("/dates/start").get("dateTime").asText();
-				eventEvent.setStart_date_event(beginScrapeDateCalendar);
+				eventEvent.setStart_date_event(NwtnParser.rawStringDateToCalendar(stringDate));
 			}
 
 			if (eventInArray.at("/sales/public").get("startDateTime") != null) {
 				stringDate = eventInArray.at("/sales/public").get("startDateTime").asText();
-				eventEvent.setStart_date_sale(beginScrapeDateCalendar);
+				eventEvent.setStart_date_sale(NwtnParser.rawStringDateToCalendar(stringDate));
 			}
 
 			if (eventInArray.at("/sales/public").get("endDateTime") != null) {

@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 com\M2IProject\eventswipe\service\UsersGenreListEntityService.class
 com\M2IProject\eventswipe\security\payload\response\MessageResponse.class
 com\M2IProject\eventswipe\service\UserDetailsServiceImpl.class
@@ -52,3 +53,5 @@ com\M2IProject\eventswipe\model\UserEntity.class
 com\M2IProject\eventswipe\controller\EventEntityController.class
 com\M2IProject\eventswipe\controller\UsersEventListEntityController.class
 com\M2IProject\eventswipe\controller\TestController.class
+=======
+>>>>>>> d86806084f8677ef320d6c4c23e18e247e92c3e7
