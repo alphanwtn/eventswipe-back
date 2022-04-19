@@ -1,6 +1,7 @@
 package com.M2IProject.eventswipe.service;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -47,6 +48,8 @@ public class UsersEventListEntityService {
 			UserEventStatusDTO dto = new UserEventStatusDTO(x, Status.ALERTED);
 			dtoList.add(dto);
 		});
+
+		Collections.sort(dtoList);
 
 		return dtoList;
 	}
