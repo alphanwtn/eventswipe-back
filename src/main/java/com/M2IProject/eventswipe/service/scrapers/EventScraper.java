@@ -288,10 +288,18 @@ public class EventScraper {
 			for (JsonNode imagesInArray : eventInArray.at("/images")) {
 				ImageEntity image = new ImageEntity();
 
-				image.setUrl(imagesInArray.get("url").asText());
-				image.setRatio(imagesInArray.get("ratio").asText());
-				image.setWidth(imagesInArray.get("width").asInt());
-				image.setHeight(imagesInArray.get("height").asInt());
+				if (imagesInArray.get("url") != null)
+					image.setUrl(imagesInArray.get("url").asText());
+
+				if (imagesInArray.get("ratio") != null) {
+					image.setRatio(imagesInArray.get("ratio").asText());
+				}
+
+				if (imagesInArray.get("width") != null)
+					image.setWidth(imagesInArray.get("width").asInt());
+
+				if (imagesInArray.get("height") != null)
+					image.setHeight(imagesInArray.get("height").asInt());
 
 				listeImagesEvent.add(image);
 			}
