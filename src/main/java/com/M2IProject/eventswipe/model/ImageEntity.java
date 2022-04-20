@@ -20,19 +20,19 @@ import lombok.NoArgsConstructor;
 
 public class ImageEntity {
 
-	@Id
-	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	private int id;
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private int id;
 
-	@Column
-	private String url;
+    @Column
+    private String url;
 
-	@Column(length = 6)
-	private String ratio;
+    @Column(length = 6)
+    private String ratio;
 
-	@Column
-	private Integer width;
+    @Column
+    private Integer width;
 
-	@Column
-	private Integer height;
+    @Column
+    private Integer height;
 }

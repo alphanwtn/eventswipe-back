@@ -15,14 +15,15 @@ import com.M2IProject.eventswipe.service.GenreEntityService;
 
 @Controller
 @CrossOrigin(origins = "*")
-//@RequestMapping(path = "/api")
 public class GenreEntityController {
 
-	@Autowired
-	private GenreEntityService genreEntityService;
+    @Autowired
+    private GenreEntityService genreEntityService;
 
-	@GetMapping(path = "/get-all-genres-by-segment-id")
-	public @ResponseBody List<GenreEntity> getAllGenresBySegmentId(@RequestParam(value = "id") String segmentId) {
-		return genreEntityService.getAllGenresBySegmentId(segmentId);
-	}
+    // creating a get mapping that retrieves all the genres from the database
+    // depending of the segment
+    @GetMapping(path = "/get-all-genres-by-segment-id")
+    public @ResponseBody List<GenreEntity> getAllGenresBySegmentId(@RequestParam(value = "id") String segmentId) {
+	return genreEntityService.getAllGenresBySegmentId(segmentId);
+    }
 }

@@ -12,14 +12,14 @@ import com.M2IProject.eventswipe.repository.UserEntityRepository;
 
 @Service
 public class UserDetailsServiceImpl implements UserDetailsService {
-	@Autowired
-	UserEntityRepository userRepository;
+    @Autowired
+    UserEntityRepository userRepository;
 
-	@Override
-	@Transactional
-	public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
-		UserEntity user = userRepository.findByEmail(username)
-				.orElseThrow(() -> new UsernameNotFoundException("User Not Found with username: " + username));
-		return UserDetailsImpl.build(user);
-	}
+    @Override
+    @Transactional
+    public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
+	UserEntity user = userRepository.findByEmail(username)
+		.orElseThrow(() -> new UsernameNotFoundException("User Not Found with username: " + username));
+	return UserDetailsImpl.build(user);
+    }
 }

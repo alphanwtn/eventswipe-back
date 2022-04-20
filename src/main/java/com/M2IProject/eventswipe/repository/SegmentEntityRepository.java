@@ -9,6 +9,6 @@ import com.M2IProject.eventswipe.model.SegmentEntity;
 
 public interface SegmentEntityRepository extends CrudRepository<SegmentEntity, Integer> {
 
-	SegmentEntity findById(String id);
+    SegmentEntity findById(String id);
 
 }

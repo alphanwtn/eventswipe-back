@@ -16,10 +16,10 @@ import lombok.NoArgsConstructor;
 @Entity
 @Table(name = "segments")
 public class SegmentEntity {
-	@Id
-	private String id;
+    @Id
+    private String id;
 
-	@Column(length = 30)
-	private String name;
+    @Column(length = 30)
+    private String name;
 
 }

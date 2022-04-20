@@ -9,6 +9,6 @@ import com.M2IProject.eventswipe.model.RoleEntity;
 
 public interface RoleEntityRepository extends JpaRepository<RoleEntity, Long> {
 
-	Optional<RoleEntity> findByName(ERole name);
+    Optional<RoleEntity> findByName(ERole name);
 
 }

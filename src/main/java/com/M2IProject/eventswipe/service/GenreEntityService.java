@@ -12,16 +12,16 @@ import com.M2IProject.eventswipe.repository.GenreEntityRepository;
 @Service
 public class GenreEntityService {
 
-	@Autowired
-	private GenreEntityRepository genreEntityRepository;
+    @Autowired
+    private GenreEntityRepository genreEntityRepository;
 
-	public List<GenreEntity> getAllGenresBySegmentId(String segmentId) {
+    public List<GenreEntity> getAllGenresBySegmentId(String segmentId) {
 
-		List<GenreEntity> genreList = new ArrayList<>();
+	List<GenreEntity> genreList = new ArrayList<>();
 
-		Iterable<GenreEntity> resultBySegment = genreEntityRepository.findByInheritedsegmentId(segmentId);
-		resultBySegment.forEach(x -> genreList.add(x));
+	Iterable<GenreEntity> resultBySegment = genreEntityRepository.findByInheritedsegmentId(segmentId);
+	resultBySegment.forEach(x -> genreList.add(x));
 
-		return genreList;
-	}
+	return genreList;
+    }
 }

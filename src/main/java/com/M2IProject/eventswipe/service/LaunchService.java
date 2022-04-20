@@ -21,32 +21,32 @@ import com.M2IProject.eventswipe.service.scrapers.EventScraper;
 @Service
 public class LaunchService {
 
-	@Autowired
-	private ClassificationScraper classificationScraper;
+    @Autowired
+    private ClassificationScraper classificationScraper;
 
-	@Autowired
-	private EventScraper eventScraper;
+    @Autowired
+    private EventScraper eventScraper;
 
-	@Autowired
-	private RoleEntityRepository roleEntityRepository;
+    @Autowired
+    private RoleEntityRepository roleEntityRepository;
 
-	/**
-	 * Do the folling action when the app is ready : Check if the roles exists in
-	 * DB, create them if not Start all the scrapers
-	 * 
-	 * @throws IOException
-	 * @throws InterruptedException
-	 */
-	@EventListener(ApplicationReadyEvent.class)
-	public void runClassificationScraper() throws IOException, InterruptedException {
+    /**
+     * Do the following action when the app is ready : Check if the roles exists in
+     * DB, create them if not, Start all the scrapers
+     * 
+     * @throws IOException
+     * @throws InterruptedException
+     */
+    @EventListener(ApplicationReadyEvent.class)
+    public void runClassificationScraper() throws IOException, InterruptedException {
 
-		if (roleEntityRepository.findByName(ERole.ROLE_ADMIN).isEmpty())
-			roleEntityRepository.save(new RoleEntity(1, ERole.ROLE_ADMIN));
+	if (roleEntityRepository.findByName(ERole.ROLE_ADMIN).isEmpty())
+	    roleEntityRepository.save(new RoleEntity(1, ERole.ROLE_ADMIN));
 
-		if (roleEntityRepository.findByName(ERole.ROLE_USER).isEmpty())
-			roleEntityRepository.save(new RoleEntity(2, ERole.ROLE_USER));
+	if (roleEntityRepository.findByName(ERole.ROLE_USER).isEmpty())
+	    roleEntityRepository.save(new RoleEntity(2, ERole.ROLE_USER));
 
-		classificationScraper.run();
-		eventScraper.run();
-	}
+	classificationScraper.run();
+	eventScraper.run();
+    }
 }

@@ -17,22 +17,22 @@ import lombok.NoArgsConstructor;
 @Entity
 @Table(name = "attractions")
 public class AttractionEntity {
-	@Id
-	private String id;
+    @Id
+    private String id;
 
-	@Column(length = 200)
-	private String name;
+    @Column(length = 200)
+    private String name;
 
-	@Column(length = 200)
-	private String url;
+    @Column(length = 200)
+    private String url;
 
-	@OneToOne(optional = true)
-	private SegmentEntity segment;
+    @OneToOne(optional = true)
+    private SegmentEntity segment;
 
-	@OneToOne(optional = true)
-	private GenreEntity genre;
+    @OneToOne(optional = true)
+    private GenreEntity genre;
 
-	@OneToOne(optional = true)
-	private SubGenreEntity subgenre;
+    @OneToOne(optional = true)
+    private SubGenreEntity subgenre;
 
 }

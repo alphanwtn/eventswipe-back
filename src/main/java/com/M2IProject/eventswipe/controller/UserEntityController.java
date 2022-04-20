@@ -25,21 +25,22 @@ public class UserEntityController {
     @Autowired
     UserEntityService userEntityService;
 
-    // creating a get mapping that retrieves all the users detail from the database
+    // creating a get mapping that retrieves all the users details from the database
     @GetMapping
     @PreAuthorize("hasRole('ROLE_ADMIN')")
     public List<UserEntity> getAllUserEntity() {
 	return userEntityService.getAllUserEntity();
     }
 
-    // creating a get mapping that retrieves the detail of a specific user
+    // creating a get mapping that retrieves the detail of a specific user based on
+    // it's id
     @GetMapping("/{userid}")
     @PreAuthorize("hasRole('ROLE_ADMIN') or principal.id == #userid")
     public UserEntity getUsers(@PathVariable("userid") int userid) {
 	return userEntityService.getUserEntityById(userid);
     }
 
-    // creating post mapping that post the user detail in the database
+    // creating a post mapping that modify the user detail in the database
     @PostMapping
     @PreAuthorize("hasRole('ROLE_ADMIN')")
     public int saveUser(@RequestBody UserEntity user) {
@@ -55,7 +56,7 @@ public class UserEntityController {
 	return userEntityService.getAllUserEntity();
     }
 
-    // creating put mapping that updates the user detail
+    // creating a put mapping that updates the user's details
     @PutMapping
     @PreAuthorize("hasRole('ROLE_ADMIN') or principal.id == #userid")
     public UserEntity update(@RequestBody UserEntity user) {
@@ -63,7 +64,8 @@ public class UserEntityController {
 	return user;
     }
 
-    // creating a put mapping that set or modify the search radius of a user
+    // creating a put mapping that set or modify the position of a user (longitude
+    // and latitude)
     @PutMapping("/gps/{userid}/{latitude}/{longitude}")
     @PreAuthorize("hasRole('ROLE_ADMIN') or principal.id == #userid")
     public @ResponseBody UserEntity updateGPSCoordinates(@PathVariable("userid") int userid,

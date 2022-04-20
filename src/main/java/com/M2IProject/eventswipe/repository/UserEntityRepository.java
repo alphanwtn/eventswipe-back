@@ -11,8 +11,8 @@ import com.M2IProject.eventswipe.model.UserEntity;
 
 public interface UserEntityRepository extends CrudRepository<UserEntity, Integer> {
 
-	Optional<UserEntity> findByEmail(String email);
+    Optional<UserEntity> findByEmail(String email);
 
-	Boolean existsByEmail(String email);
+    Boolean existsByEmail(String email);
 
 }

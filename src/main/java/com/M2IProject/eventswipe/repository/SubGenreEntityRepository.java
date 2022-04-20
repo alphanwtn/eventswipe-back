@@ -9,6 +9,6 @@ import com.M2IProject.eventswipe.model.SubGenreEntity;
 
 public interface SubGenreEntityRepository extends CrudRepository<SubGenreEntity, Integer> {
 
-	SubGenreEntity findById(String id);
+    SubGenreEntity findById(String id);
 
 }

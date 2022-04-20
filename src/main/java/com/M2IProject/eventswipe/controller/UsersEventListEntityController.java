@@ -27,14 +27,16 @@ public class UsersEventListEntityController {
     UsersEventListEntityService usersEventListEntityService;
 
     // creating a get mapping that show all events for a specific user's
-    // userEventList
+    // userEventList (events witches the user has interacted with [liked, disliked,
+    // alerted])
     @GetMapping("/{userid}")
     @PreAuthorize("hasRole('ROLE_ADMIN') or principal.id == #userid")
     public @ResponseBody List<EventEntity> getAllEventList(@PathVariable("userid") int userid) {
 	return usersEventListEntityService.getAllEventList(userid);
     }
 
-    // creating a get mapping that show all events liked by an user
+    // creating a get mapping that show all events of a user for a specific status
+    // [liked, disliked, alerted]
     @GetMapping("/{userid}/{STATUS}")
     @PreAuthorize("hasRole('ROLE_ADMIN') or principal.id == #userid")
     public @ResponseBody List<EventEntity> getAllEventListByStatus(@PathVariable("userid") int userid,
@@ -51,6 +53,7 @@ public class UsersEventListEntityController {
     }
 
     // creating a post mapping that add an event to a specific user's userEventList
+    // [liked, disliked, alerted]
     @PostMapping("/{userid}/{eventid}/{STATUS}")
     @PreAuthorize("hasRole('ROLE_ADMIN') or principal.id == #userid")
     public @ResponseBody void addUserEvent(@PathVariable("userid") int userid, @PathVariable("eventid") String eventId,
@@ -59,7 +62,7 @@ public class UsersEventListEntityController {
     }
 
     // creating a delete mapping that deletes a specified event in an user's
-    // userEventList
+    // userEventList [using for tests purposes only]
     @DeleteMapping("/{userid}/{eventid}")
     @PreAuthorize("hasRole('ROLE_ADMIN')")
     public @ResponseBody void deleteUsersEventListByEventId(@PathVariable("userid") int userid,
@@ -68,7 +71,8 @@ public class UsersEventListEntityController {
     }
 
     // creating a put mapping that modify the status of an event in a users's
-    // eventlist here liked to alerted
+    // eventlist to disliked (making the event disappear for the user but still in
+    // user eventlist)
     @PutMapping("/{userid}/{eventid}/disliked")
     @PreAuthorize("hasRole('ROLE_ADMIN') or principal.id == #userid")
     public @ResponseBody void changeStatusToDisliked(@PathVariable("userid") int userid,

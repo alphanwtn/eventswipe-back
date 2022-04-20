@@ -27,7 +27,7 @@ import com.M2IProject.eventswipe.repository.SegmentEntityRepository;
 import com.M2IProject.eventswipe.repository.SubGenreEntityRepository;
 
 /**
- * Objet permettant la rÃ©cupÃ©ration de tous les genre, segments et subgenre de
+ * Objet permettant la récupération de tous les genre, segments et subgenre de
  * TicketMaster et de les stocker sous forme d'objets utilisables par Java.
  * 
  * @author Julien Bessac
@@ -37,153 +37,155 @@ import com.M2IProject.eventswipe.repository.SubGenreEntityRepository;
 @Service
 public class ClassificationScraper {
 
-	@Autowired
-	private SegmentEntityRepository segmentEntityRepository;
-	@Autowired
-	private GenreEntityRepository genreEntityRepository;
-	@Autowired
-	private SubGenreEntityRepository subGenreEntityRepository;
+    @Autowired
+    private SegmentEntityRepository segmentEntityRepository;
+    @Autowired
+    private GenreEntityRepository genreEntityRepository;
+    @Autowired
+    private SubGenreEntityRepository subGenreEntityRepository;
 
-	// DONT TOUCH
-	@Value("${scraper.tmkey}")
-	private String CONSUMER_K;
+    // DONT TOUCH
+    @Value("${scraper.tmkey}")
+    private String CONSUMER_K;
 
-	// TO TOUCH
-	@Value("${scraper.language}")
-	private String languageCode;
+    // TO TOUCH
+    @Value("${scraper.language}")
+    private String languageCode;
 
-	// INSTANCE STORAGE
-	private Set<SegmentEntity> listeSegments = new HashSet<>();
-	private Set<GenreEntity> listeGenres = new HashSet<>();
-	private Set<SubGenreEntity> listeSubGenres = new HashSet<>();
+    // INSTANCE STORAGE
+    private Set<SegmentEntity> listeSegments = new HashSet<>();
+    private Set<GenreEntity> listeGenres = new HashSet<>();
+    private Set<SubGenreEntity> listeSubGenres = new HashSet<>();
 
-	/**
-	 * Gï¿½nï¿½re le string correspondant ï¿½ la requï¿½te ï¿½ envoyer ï¿½ TicketMaster
-	 * 
-	 * @param beginInts correspond ï¿½ l'attribut startDateTime de la requete
-	 * @param endInts   correspond ï¿½ l'attribut endDateTime de la requete
-	 * @param page      correspond ï¿½ la page qu'on veut afficher aprï¿½s la requï¿½te
-	 * @return renvoie un string de la requï¿½te
-	 */
-	private String requestBuilder() {
+    /**
+     * Gï¿½nï¿½re le string correspondant ï¿½ la requï¿½te ï¿½ envoyer ï¿½
+     * TicketMaster
+     * 
+     * @param beginInts correspond ï¿½ l'attribut startDateTime de la requete
+     * @param endInts   correspond ï¿½ l'attribut endDateTime de la requete
+     * @param page      correspond ï¿½ la page qu'on veut afficher aprï¿½s la
+     *                  requï¿½te
+     * @return renvoie un string de la requï¿½te
+     */
+    private String requestBuilder() {
 
-		StringBuilder customRequest = new StringBuilder("https://app.ticketmaster.com/discovery/v2/classifications?");
-		customRequest.append("apikey=" + CONSUMER_K);
-		customRequest.append("&locale=" + languageCode);
+	StringBuilder customRequest = new StringBuilder("https://app.ticketmaster.com/discovery/v2/classifications?");
+	customRequest.append("apikey=" + CONSUMER_K);
+	customRequest.append("&locale=" + languageCode);
 
-		return customRequest.toString();
-	}
+	return customRequest.toString();
+    }
 
-	/**
-	 * Rï¿½cupï¿½re les donnï¿½es issue du JSON de la requï¿½te et les stocke dans les
-	 * listes d'objets qui sont en paramï¿½tre de l'instance
-	 * 
-	 * @param jsonBodyResponse
-	 * @return renvoie le nombre d'ï¿½vï¿½nements contenus dans le JSON
-	 * @throws JsonMappingException
-	 * @throws JsonProcessingException
-	 */
-	private void storeDataFromJSON(String jsonBodyResponse) throws JsonMappingException, JsonProcessingException {
+    /**
+     * Rï¿½cupï¿½re les donnï¿½es issue du JSON de la requï¿½te et les stocke dans
+     * les listes d'objets qui sont en paramï¿½tre de l'instance
+     * 
+     * @param jsonBodyResponse
+     * @return renvoie le nombre d'ï¿½vï¿½nements contenus dans le JSON
+     * @throws JsonMappingException
+     * @throws JsonProcessingException
+     */
+    private void storeDataFromJSON(String jsonBodyResponse) throws JsonMappingException, JsonProcessingException {
 
-		ObjectMapper mapper = new ObjectMapper();
-		JsonNode jnode = mapper.readTree(jsonBodyResponse);
+	ObjectMapper mapper = new ObjectMapper();
+	JsonNode jnode = mapper.readTree(jsonBodyResponse);
 
-		for (JsonNode classificationInArray : jnode.at("/_embedded/classifications")) {
-			if (classificationInArray.at("/segment").get("name") != null) { // Permet de skip les trucs bizares
+	for (JsonNode classificationInArray : jnode.at("/_embedded/classifications")) {
+	    if (classificationInArray.at("/segment").get("name") != null) { // Permet de skip les trucs bizares
 
-				SegmentEntity segment = new SegmentEntity();
+		SegmentEntity segment = new SegmentEntity();
 
-				segment.setId(classificationInArray.at("/segment").get("id").asText());
-				segment.setName(classificationInArray.at("/segment").get("name").asText());
+		segment.setId(classificationInArray.at("/segment").get("id").asText());
+		segment.setName(classificationInArray.at("/segment").get("name").asText());
 
-				listeSegments.add(segment);
+		listeSegments.add(segment);
 
-				for (JsonNode genreInArray : classificationInArray.at("/segment/_embedded/genres")) {
+		for (JsonNode genreInArray : classificationInArray.at("/segment/_embedded/genres")) {
 
-					GenreEntity genre = new GenreEntity();
-					genre.setId(genreInArray.get("id").asText());
-					genre.setName(genreInArray.get("name").asText());
-					genre.setInheritedsegment(segment);
+		    GenreEntity genre = new GenreEntity();
+		    genre.setId(genreInArray.get("id").asText());
+		    genre.setName(genreInArray.get("name").asText());
+		    genre.setInheritedsegment(segment);
 
-					listeGenres.add(genre);
+		    listeGenres.add(genre);
 
-					for (JsonNode subgenreInArray : genreInArray.at("/_embedded/subgenres")) {
+		    for (JsonNode subgenreInArray : genreInArray.at("/_embedded/subgenres")) {
 
-						SubGenreEntity subgenre = new SubGenreEntity();
+			SubGenreEntity subgenre = new SubGenreEntity();
 
-						if (subgenreInArray.get("name") != null) {
-							subgenre.setId(subgenreInArray.get("id").asText());
-							subgenre.setName(subgenreInArray.get("name").asText());
-							subgenre.setInheritedgenre(genre);
-						} else {
-							subgenre.setId(subgenreInArray.get("id").asText());
-							subgenre.setName(null);
-							subgenre.setInheritedgenre(genre);
-						}
-
-						listeSubGenres.add(subgenre);
-					}
-
-				}
+			if (subgenreInArray.get("name") != null) {
+			    subgenre.setId(subgenreInArray.get("id").asText());
+			    subgenre.setName(subgenreInArray.get("name").asText());
+			    subgenre.setInheritedgenre(genre);
+			} else {
+			    subgenre.setId(subgenreInArray.get("id").asText());
+			    subgenre.setName(null);
+			    subgenre.setInheritedgenre(genre);
 			}
+
+			listeSubGenres.add(subgenre);
+		    }
+
 		}
-
-		System.out.println("Nombre total de segments : " + listeSegments.size());
-		System.out.println("Nombre total de genres : " + listeGenres.size());
-		System.out.println("Nombre total de subgenres : " + listeSubGenres.size());
+	    }
 	}
 
-	/**
-	 * Ajoute ï¿½ la BDD toutes les listes d'objets stockï¿½ en params de l'instance,
-	 * flush ï¿½ la fin.
-	 */
-	private void setsToDatabase() {
+	System.out.println("Nombre total de segments : " + listeSegments.size());
+	System.out.println("Nombre total de genres : " + listeGenres.size());
+	System.out.println("Nombre total de subgenres : " + listeSubGenres.size());
+    }
 
-		listeSegments.forEach(g -> segmentEntityRepository.save(g));
-		listeGenres.forEach(g -> genreEntityRepository.save(g));
-		listeSubGenres.forEach(g -> subGenreEntityRepository.save(g));
+    /**
+     * Ajoute ï¿½ la BDD toutes les listes d'objets stockï¿½ en params de
+     * l'instance, flush ï¿½ la fin.
+     */
+    private void setsToDatabase() {
 
-		listeSegments.clear();
-		listeGenres.clear();
-		listeSubGenres.clear();
+	listeSegments.forEach(g -> segmentEntityRepository.save(g));
+	listeGenres.forEach(g -> genreEntityRepository.save(g));
+	listeSubGenres.forEach(g -> subGenreEntityRepository.save(g));
+
+	listeSegments.clear();
+	listeGenres.clear();
+	listeSubGenres.clear();
+    }
+
+    /**
+     * Lance le scraping en fonction des paramï¿½tres de l'instance
+     * 
+     * @throws IOException          Exception liï¿½e ï¿½ la requï¿½te http
+     * @throws InterruptedException Exception liï¿½e ï¿½ la requï¿½te http
+     */
+    public void run() throws IOException, InterruptedException {
+
+	HttpClient client = HttpClient.newHttpClient();
+	String jsonBodyResponse = "";
+	String stringRequest = "";
+
+	System.err.println("Scanning all segments, genres and subgenres");
+
+	// Creation URL API
+	stringRequest = requestBuilder();
+	HttpRequest request = HttpRequest.newBuilder().uri(URI.create(stringRequest)).GET().build();
+	System.out.println(stringRequest);
+
+	try {
+	    HttpResponse<String> response = client.send(request, BodyHandlers.ofString());
+	    jsonBodyResponse = response.body();
+	    System.out.println("Status  : " + response.statusCode());
+
+	} catch (IOException | InterruptedException e) {
+	    e.printStackTrace();
 	}
 
-	/**
-	 * Lance le scraping en fonction des paramï¿½tres de l'instance
-	 * 
-	 * @throws IOException          Exception liï¿½e ï¿½ la requï¿½te http
-	 * @throws InterruptedException Exception liï¿½e ï¿½ la requï¿½te http
-	 */
-	public void run() throws IOException, InterruptedException {
+	//// Convert JSON to objects and add them in instance attributs arrays
+	storeDataFromJSON(jsonBodyResponse);
 
-		HttpClient client = HttpClient.newHttpClient();
-		String jsonBodyResponse = "";
-		String stringRequest = "";
+	// Ecrit les sets dans la DB dont la params sont dans le sessionFactory
+	setsToDatabase();
 
-		System.err.println("Scanning all segments, genres and subgenres");
+	System.out.println("Every segments, genres and subgenres scrapped !");
+	System.out.println("-------------------------------");
 
-		// Creation URL API
-		stringRequest = requestBuilder();
-		HttpRequest request = HttpRequest.newBuilder().uri(URI.create(stringRequest)).GET().build();
-		System.out.println(stringRequest);
-
-		try {
-			HttpResponse<String> response = client.send(request, BodyHandlers.ofString());
-			jsonBodyResponse = response.body();
-			System.out.println("Status  : " + response.statusCode());
-
-		} catch (IOException | InterruptedException e) {
-			e.printStackTrace();
-		}
-
-		//// Convert JSON to objects and add them in instance attributs arrays
-		storeDataFromJSON(jsonBodyResponse);
-
-		// Ecrit les sets dans la DB dont la params sont dans le sessionFactory
-		setsToDatabase();
-
-		System.out.println("Every segments, genres and subgenres scrapped !");
-		System.out.println("-------------------------------");
-
-	}
+    }
 }

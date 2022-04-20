@@ -15,21 +15,21 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 public class SignupRequest {
 
-	@NotBlank
-	@Size(max = 50)
-	@Email
-	private String email;
+    @NotBlank
+    @Size(max = 50)
+    @Email
+    private String email;
 
-	@NotBlank
-	@Size(min = 6, max = 40)
-	private String password;
+    @NotBlank
+    @Size(min = 6, max = 40)
+    private String password;
 
-	private String first_name;
+    private String first_name;
 
-	private String last_name;
+    private String last_name;
 
-	private String city;
+    private String city;
 
-	private Set<String> roles;
+    private Set<String> roles;
 
 }

@@ -27,7 +27,7 @@ public class UsersGenreListEntityController {
     @Autowired
     GenreEntityService genreEntityService;
 
-    // creating a get mapping that show all genres chosen by an user
+    // creating a get mapping that show all genres chosen by a user
     @GetMapping("/{userid}")
     @PreAuthorize("hasRole('ROLE_ADMIN') or principal.id == #userid")
     public @ResponseBody List<GenreEntity> getAllGenreList(@PathVariable("userid") int userid) {

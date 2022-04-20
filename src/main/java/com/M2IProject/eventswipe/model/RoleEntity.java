@@ -19,10 +19,10 @@ import lombok.NoArgsConstructor;
 @Table(name = "roles")
 public class RoleEntity {
 
-	@Id
-	private int id;
+    @Id
+    private int id;
 
-	@Enumerated(EnumType.STRING)
-	@Column(length = 15, unique = true)
-	private ERole name;
+    @Enumerated(EnumType.STRING)
+    @Column(length = 15, unique = true)
+    private ERole name;
 }

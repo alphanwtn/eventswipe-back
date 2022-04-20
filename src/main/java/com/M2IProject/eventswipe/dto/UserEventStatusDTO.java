@@ -12,11 +12,11 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 public class UserEventStatusDTO implements Comparable<UserEventStatusDTO> {
 
-	private EventEntity event;
-	private Status status;
+    private EventEntity event;
+    private Status status;
 
-	@Override
-	public int compareTo(UserEventStatusDTO o) {
-		return this.getEvent().getStart_date_event().compareTo(o.getEvent().getStart_date_event());
-	}
+    @Override
+    public int compareTo(UserEventStatusDTO o) {
+	return this.getEvent().getStart_date_event().compareTo(o.getEvent().getStart_date_event());
+    }
 }

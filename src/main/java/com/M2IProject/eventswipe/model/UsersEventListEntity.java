@@ -25,23 +25,21 @@ import lombok.NoArgsConstructor;
 @Entity
 @Table(name = "users_eventlist", uniqueConstraints = { @UniqueConstraint(columnNames = { "user_id", "event_id" }) })
 public class UsersEventListEntity {
-	@Id
-	@Column
-	@GeneratedValue(strategy = GenerationType.AUTO)
-	private int id;
+    @Id
+    @Column
+    @GeneratedValue(strategy = GenerationType.AUTO)
+    private int id;
 
-	@Enumerated(EnumType.STRING)
-	private Status status;
+    @Enumerated(EnumType.STRING)
+    private Status status;
 
-	@NotNull
-	@ManyToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
-	@JoinColumn(name = "user_id")
-	// @JsonIgnore
-	private UserEntity user;
+    @NotNull
+    @ManyToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+    @JoinColumn(name = "user_id")
+    private UserEntity user;
 
-	@NotNull
-	@ManyToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
-	@JoinColumn(name = "event_id")
-	// @JsonIgnore
-	private EventEntity event;
+    @NotNull
+    @ManyToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+    @JoinColumn(name = "event_id")
+    private EventEntity event;
 }

@@ -16,13 +16,13 @@ import lombok.NoArgsConstructor;
 @Entity
 @Table(name = "genres")
 public class GenreEntity {
-	@Id
-	private String id;
+    @Id
+    private String id;
 
-	@Column(length = 50)
-	private String name;
+    @Column(length = 50)
+    private String name;
 
-	@OneToOne
-	private SegmentEntity inheritedsegment;
+    @OneToOne
+    private SegmentEntity inheritedsegment;
 
 }
