@@ -15,7 +15,7 @@ public class NwtnParser {
 			ints[i] = Integer.parseInt(strs[i]);
 
 		calendar.set(Calendar.YEAR, ints[0]);
-		calendar.set(Calendar.MONTH, ints[1]);
+		calendar.set(Calendar.MONTH, ints[1] - 1);
 		calendar.set(Calendar.DATE, ints[2]);
 		calendar.set(Calendar.HOUR_OF_DAY, ints[3]);
 		calendar.set(Calendar.MINUTE, ints[4]);
