@@ -21,6 +21,7 @@ import org.springframework.web.bind.annotation.RestController;
 import com.M2IProject.eventswipe.model.ERole;
 import com.M2IProject.eventswipe.model.RoleEntity;
 import com.M2IProject.eventswipe.model.UserEntity;
+import com.M2IProject.eventswipe.repository.RoleEntityRepository;
 import com.M2IProject.eventswipe.repository.UserEntityRepository;
 import com.M2IProject.eventswipe.security.jwt.JwtUtils;
 import com.M2IProject.eventswipe.security.payload.request.LoginRequest;
@@ -69,7 +70,7 @@ public class AuthController {
 		// Create new user's account
 		UserEntity user = new UserEntity(signUpRequest.getEmail(), encoder.encode(signUpRequest.getPassword()),
 				signUpRequest.getFirst_name(), signUpRequest.getLast_name(), signUpRequest.getCity());
-		Set<String> strRoles = signUpRequest.getRole();
+		Set<String> strRoles = signUpRequest.getRoles();
 		Set<RoleEntity> roles = new HashSet<>();
 		if (strRoles == null) {
 			RoleEntity userRole = roleRepository.findByName(ERole.ROLE_USER)

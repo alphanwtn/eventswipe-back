@@ -11,6 +11,8 @@ import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import javax.persistence.JoinColumn;
 import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
@@ -53,6 +55,7 @@ public class UserEntity implements UserDetails {
     @Column(length = 200)
     private String city;
 
+    @JsonIgnore
     @Column(nullable = false)
     private String password;
 

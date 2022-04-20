@@ -47,22 +47,32 @@ public class UserEntityService {
 		user.setPassword(passwordEncoder.encode(pwd));
 		user.setRoles(roles);
 		UserEntityRepository.save(user);
+
 	}
 
 	// deleting a specific record by using the method deleteById() of CrudRepository
 	public void delete(int id) {
 		UserEntityRepository.deleteById(id);
-
-	}
-
-	// updating a record
-	public void update(UserEntity user, int userid) {
-		UserEntityRepository.save(user);
 	}
 
 	// updating a record
 	public void update(UserEntity user) {
 		UserEntityRepository.save(user);
+	}
+
+	public UserEntity updateRadius(int userid, int radius) {
+		UserEntity user = UserEntityRepository.findById(userid).get();
+		user.setSearchRadiusKm(radius);
+		UserEntityRepository.save(user);
+		return user;
+	}
+
+	public UserEntity updateGPSCoordinates(int userid, String longitude, String latitude) {
+		UserEntity user = UserEntityRepository.findById(userid).get();
+		user.setGps_latitude(latitude);
+		user.setGps_longitude(longitude);
+		UserEntityRepository.save(user);
+		return user;
 	}
 
 }

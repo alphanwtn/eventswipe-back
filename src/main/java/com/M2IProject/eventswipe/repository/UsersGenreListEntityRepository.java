@@ -1,5 +1,6 @@
 package com.M2IProject.eventswipe.repository;
 
+import java.util.List;
 import java.util.Optional;
 
 import org.springframework.data.repository.CrudRepository;
@@ -11,6 +12,8 @@ import com.M2IProject.eventswipe.model.UsersGenreListEntity;
 
 public interface UsersGenreListEntityRepository extends CrudRepository<UsersGenreListEntity, Integer> {
 
-	Optional<UsersGenreListEntity> findByUser(int id);
+    Optional<UsersGenreListEntity> findByUser(int id);
+
+    List<UsersGenreListEntity> findAllByUserId(int userid);
 
 }
