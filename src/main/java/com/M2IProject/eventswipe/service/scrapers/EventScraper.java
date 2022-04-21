@@ -37,10 +37,9 @@ import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
 /**
- * Objet permettant la récup�ration de données d'évènements de l'API
- * TicketMaster et de les stocker sous forme d'objets utilisables par Java.
- * Demarre scrape à la date du jour
  * 
+ * This object allows to scrape all the events from the Ticketmaster API for a
+ * specific country
  *
  */
 @Service
@@ -70,7 +69,7 @@ public class EventScraper {
     // INTERNAL CONFIG
     private int MAX_PAGE_LIMIT = 5;
     private int MAX_SIZE_LIMIT = 200;
-    private int scrapeDayRange = 1; // By default
+    private int scrapeDayRange = 1;
 
     // INTERNAL RUNNING VARIABLES
     private Calendar beginScrapeDateCalendar = Calendar.getInstance();
@@ -79,7 +78,6 @@ public class EventScraper {
     private Date endScrappingDate;
 
     // INSTANCE STORAGE
-
     private Set<EventEntity> listeEvents = new HashSet<>();
 
     public EventScraper() {
@@ -90,11 +88,10 @@ public class EventScraper {
     }
 
     /**
-     * Transforme un calendrier en une table de 3 strings representant les numeros
-     * associés à la date
+     * Convert a calendar to an array of int reprensenting that date
      * 
-     * @param dateCalendar est le calendirer � transformer
-     * @return et les tableau de string associ� � la date � renvoyer
+     * @param dateCalendar is the calendar to convert
+     * @return is the array of int
      */
     private String[] calendarToIntstrings(Calendar dateCalendar) {
 
@@ -109,14 +106,12 @@ public class EventScraper {
     }
 
     /**
-     * G�n�re le string correspondant � la requ�te � envoyer �
-     * TicketMaster
+     * Build the request url from API key and language and dynamic parameters
      * 
-     * @param beginInts correspond � l'attribut startDateTime de la requete
-     * @param endInts   correspond � l'attribut endDateTime de la requete
-     * @param page      correspond � la page qu'on veut afficher apr�s la
-     *                  requ�te
-     * @return renvoie un string de la requ�te
+     * @param beginInts represents the min start date of the events to scrape
+     * @param endInts   represents the maxstart date of the events to scrape
+     * @param page      is the number of the page (see TM api doc)
+     * @return the request url to send
      */
     private String requestBuilder(String[] beginInts, String[] endInts, int page) {
 
@@ -131,15 +126,13 @@ public class EventScraper {
 	customRequest.append("&endDateTime=" + endInts[0] + "-" + endInts[1] + "-" + endInts[2] + "T00:00:00Z");
 
 	return customRequest.toString();
-
     }
 
     /**
-     * R�cup�re les donn�es issue du JSON de la requ�te et les stocke dans
-     * les listes d'objets qui sont en paramètre de l'instance
+     * Extract all events from the JSON response
      * 
      * @param jsonBodyResponse
-     * @return renvoie le nombre d'�v�nements contenus dans le JSON
+     * @return
      * @throws JsonMappingException
      * @throws JsonProcessingException
      */
@@ -186,8 +179,7 @@ public class EventScraper {
 		eventEvent.setEnd_date_sale(NwtnParser.rawStringDateToCalendar(stringDate));
 	    }
 
-	    // SEGMENT, GENRE, SUBGENRE (pour chaque, get l'id du json mais affecte depuis
-	    // la dbb)
+	    // SEGMENT, GENRE, SUBGENRE (for each, get the id but get from db)
 	    if (eventInArray.at("/classifications").size() > 1)
 		throw new RuntimeException("Evenement dont les classifications sont > 1 !");
 
@@ -234,7 +226,6 @@ public class EventScraper {
 	    }
 
 	    // ATTRACTIONS
-
 	    for (JsonNode attractionInArray : eventInArray.at("/_embedded/attractions")) {
 		AttractionEntity attraction = new AttractionEntity();
 
@@ -246,8 +237,6 @@ public class EventScraper {
 		if (attractionInArray.get("url") != null)
 		    attraction.setUrl(attractionInArray.get("url").asText());
 
-		// On fait un for alors qu'on sait qu'il n'y a qu'une classif par attraction, a
-		// corriger
 		if (attractionInArray.at("/classifications").size() > 1)
 		    throw new RuntimeException("Attraction dont les classifs sont > 1 !");
 
@@ -286,7 +275,6 @@ public class EventScraper {
 	    }
 
 	    /// IMAGES PART
-
 	    for (JsonNode imagesInArray : eventInArray.at("/images")) {
 		ImageEntity image = new ImageEntity();
 
@@ -314,24 +302,20 @@ public class EventScraper {
 	    eventEvent.setImagesinevent(listeImagesEvent);
 
 	    listeEvents.add(eventEvent);
-
 	}
-
 	return jnode.at("/_embedded/events").size();
     }
 
     /**
-     * Ajoute � la BDD toutes les listes d'objets stock� en params de
-     * l'instance, flush � la fin.
+     * Set all the events from internal storage DB
      */
     private void setsToDatabase() {
-
 	listeEvents.forEach(g -> eventEntityRepository.save(g));
 	listeEvents.clear();
     }
 
     /**
-     * Affiche le temps lors du demarrage du scrape
+     * Display the starting date of scrape
      */
     private void displayScrapeStartTime() {
 	startScrappingDate = new Date();
@@ -339,7 +323,7 @@ public class EventScraper {
     }
 
     /**
-     * Affiche de temps de scrape � la fin de l'execution
+     * Display the end date of scrape
      */
     private void displayScrapeEllapsedTime() {
 	endScrappingDate = new Date();
@@ -355,10 +339,10 @@ public class EventScraper {
     }
 
     /**
-     * Lance le scraping en fonction des param�tres de l'instance
+     * Run the scraper
      * 
-     * @throws IOException          Exception li�e � la requ�te http
-     * @throws InterruptedException Exception li�e � la requ�te http
+     * @throws IOException
+     * @throws InterruptedException
      */
     public void run() throws IOException, InterruptedException {
 
@@ -397,10 +381,8 @@ public class EventScraper {
 		    e.printStackTrace();
 		}
 
-		//// Convert JSON to objects and add them in instance attributs arrays
 		int eventNumberInPage = storeDataFromJSON(jsonBodyResponse);
 
-		// Ecrit les sets dans la DB dont la params sont dans le sessionFactory
 		setsToDatabase();
 
 		System.out.println("Events recensés " + eventNumberInPage + ". Page=" + page);
@@ -414,11 +396,10 @@ public class EventScraper {
 		    break;
 		}
 	    }
-	    // On passe à la journée suivante
+	    // Next day
 	    beginScrapeDateCalendar.add(Calendar.DATE, 1);
 	    endScrapeDateCalendar.add(Calendar.DATE, 1);
 	}
 	displayScrapeEllapsedTime();
     }
-
 }

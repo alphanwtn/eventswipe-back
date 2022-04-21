@@ -27,13 +27,11 @@ import com.M2IProject.eventswipe.repository.SegmentEntityRepository;
 import com.M2IProject.eventswipe.repository.SubGenreEntityRepository;
 
 /**
- * Objet permettant la récupération de tous les genre, segments et subgenre de
- * TicketMaster et de les stocker sous forme d'objets utilisables par Java.
  * 
- * @author Julien Bessac
+ * This object allows to scrape all the segments, genres and subgenres from the
+ * Ticketmaster API
  *
  */
-
 @Service
 public class ClassificationScraper {
 
@@ -58,14 +56,9 @@ public class ClassificationScraper {
     private Set<SubGenreEntity> listeSubGenres = new HashSet<>();
 
     /**
-     * Gï¿½nï¿½re le string correspondant ï¿½ la requï¿½te ï¿½ envoyer ï¿½
-     * TicketMaster
+     * Build the request url from API key and language
      * 
-     * @param beginInts correspond ï¿½ l'attribut startDateTime de la requete
-     * @param endInts   correspond ï¿½ l'attribut endDateTime de la requete
-     * @param page      correspond ï¿½ la page qu'on veut afficher aprï¿½s la
-     *                  requï¿½te
-     * @return renvoie un string de la requï¿½te
+     * @return the complete request url
      */
     private String requestBuilder() {
 
@@ -77,11 +70,9 @@ public class ClassificationScraper {
     }
 
     /**
-     * Rï¿½cupï¿½re les donnï¿½es issue du JSON de la requï¿½te et les stocke dans
-     * les listes d'objets qui sont en paramï¿½tre de l'instance
+     * Extract all segments, genres and subgenres from the JSON response
      * 
      * @param jsonBodyResponse
-     * @return renvoie le nombre d'ï¿½vï¿½nements contenus dans le JSON
      * @throws JsonMappingException
      * @throws JsonProcessingException
      */
@@ -122,22 +113,18 @@ public class ClassificationScraper {
 			    subgenre.setName(null);
 			    subgenre.setInheritedgenre(genre);
 			}
-
 			listeSubGenres.add(subgenre);
 		    }
-
 		}
 	    }
 	}
-
 	System.out.println("Nombre total de segments : " + listeSegments.size());
 	System.out.println("Nombre total de genres : " + listeGenres.size());
 	System.out.println("Nombre total de subgenres : " + listeSubGenres.size());
     }
 
     /**
-     * Ajoute ï¿½ la BDD toutes les listes d'objets stockï¿½ en params de
-     * l'instance, flush ï¿½ la fin.
+     * Put all the stored object in the database
      */
     private void setsToDatabase() {
 
@@ -151,10 +138,10 @@ public class ClassificationScraper {
     }
 
     /**
-     * Lance le scraping en fonction des paramï¿½tres de l'instance
+     * Run the scraper
      * 
-     * @throws IOException          Exception liï¿½e ï¿½ la requï¿½te http
-     * @throws InterruptedException Exception liï¿½e ï¿½ la requï¿½te http
+     * @throws IOException
+     * @throws InterruptedException
      */
     public void run() throws IOException, InterruptedException {
 
@@ -164,7 +151,6 @@ public class ClassificationScraper {
 
 	System.err.println("Scanning all segments, genres and subgenres");
 
-	// Creation URL API
 	stringRequest = requestBuilder();
 	HttpRequest request = HttpRequest.newBuilder().uri(URI.create(stringRequest)).GET().build();
 	System.out.println(stringRequest);
@@ -178,14 +164,11 @@ public class ClassificationScraper {
 	    e.printStackTrace();
 	}
 
-	//// Convert JSON to objects and add them in instance attributs arrays
 	storeDataFromJSON(jsonBodyResponse);
 
-	// Ecrit les sets dans la DB dont la params sont dans le sessionFactory
 	setsToDatabase();
 
 	System.out.println("Every segments, genres and subgenres scrapped !");
 	System.out.println("-------------------------------");
-
     }
 }
