@@ -4,6 +4,8 @@ import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Collections;
 import java.util.List;
+import java.util.Optional;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -28,6 +30,11 @@ public class EventEntityService {
     private UsersGenreListEntityRepository usersGenreListEntityRepository;
     @Autowired
     private UsersEventListEntityRepository usersEventListEntityRepository;
+
+    public Optional<EventEntity> getAnEventById(String id) {
+	Optional<EventEntity> event = eventEntityRepository.findById(id);
+	return event;
+    }
 
     public List<EventEntity> getAllEventsByGenreName(List<String> searchedGenres) {
 

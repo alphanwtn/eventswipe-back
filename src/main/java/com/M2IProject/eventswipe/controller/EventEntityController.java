@@ -1,6 +1,7 @@
 package com.M2IProject.eventswipe.controller;
 
 import java.util.List;
+import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -22,6 +23,13 @@ public class EventEntityController {
 
     @Autowired
     private com.M2IProject.eventswipe.service.EventEntityService eventEntityService;
+
+    // creating a get mapping that retrieves one specific event based on its ID
+    // :String:
+    @GetMapping("/{eventid}")
+    public @ResponseBody Optional<EventEntity> getAnEventById(@PathVariable("eventid") String eventid) {
+	return eventEntityService.getAnEventById(eventid);
+    }
 
     // creating a get mapping that retrieves all the events for a genre (by it's
     // name) from the database
