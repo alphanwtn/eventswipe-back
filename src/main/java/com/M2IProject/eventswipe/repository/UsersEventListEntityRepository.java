@@ -15,7 +15,7 @@ import com.M2IProject.eventswipe.model.UsersEventListEntity;
 
 public interface UsersEventListEntityRepository extends CrudRepository<UsersEventListEntity, Integer> {
 
-    Optional<UsersEventListEntity> findByUser(Integer user_id);
+    Optional<UsersEventListEntity> findByUserId(Integer user_id);
 
     List<UsersEventListEntity> findAllByUserId(int userid);
 
