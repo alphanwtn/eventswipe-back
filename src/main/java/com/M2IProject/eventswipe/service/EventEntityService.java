@@ -143,37 +143,31 @@ public class EventEntityService {
 	// fifth step omettre l'évenement si celui ci a déjà  était présenté au
 	// user par le passé (si déjà  présent dans user eventlist sous n'importe
 	// quel statut donc)
-	List<EventEntity> eventsSubmitToUser3 = new ArrayList<>();
 	List<UsersEventListEntity> userEventListe = usersEventListEntityRepository.findAllByUserId(userid);
 
 	// il faut tenir compte du cas d'un nouveau user qui n'a jamais intéragi avec un
 	// événement et qui a donc une userEventList vide
+	List<EventEntity> liste = new ArrayList<>();
+	userEventListe.forEach(x -> liste.add(x.getEvent()));
+
 	if (userEventListe.size() != 0) {
-	    for (EventEntity e : eventsSubmitToUser2) {
-		for (UsersEventListEntity x : userEventListe) {
-		    if (e.getId() == x.getEvent().getId()) {
-			continue;
-		    } else {
-			eventsSubmitToUser3.add(e);
-		    }
-		    if (eventsSubmitToUser3.size() == 0) {
-			return eventsSubmitToUser3;
-		    }
+	    for (EventEntity x : liste) {
+		if (eventsSubmitToUser2.contains(x)) {
+		    eventsSubmitToUser2.remove(x);
 		}
 	    }
-	    Collections.shuffle(eventsSubmitToUser3);
+	    Collections.shuffle(eventsSubmitToUser2);
 
-	    if (eventsSubmitToUser3.size() > 30) {
-		return eventsSubmitToUser3.subList(0, 30);
+	    if (eventsSubmitToUser2.size() > 30) {
+		return eventsSubmitToUser2.subList(0, 30);
 	    }
-	    return eventsSubmitToUser3;
+	    return eventsSubmitToUser2;
 	} else {
 	    Collections.shuffle(eventsSubmitToUser2);
 	    if (eventsSubmitToUser2.size() > 30) {
 		return eventsSubmitToUser2.subList(0, 30);
 	    }
 	    return eventsSubmitToUser2;
-
 	}
     }
 }
